@@ -1,8 +1,5 @@
 <div ng-include="'views/partials/nav.html'"></div>
 <div class="container">
-
-    <h1 id="welcome" class="lead">Welcome, {{vm.userObject.rank}} {{vm.userObject.last}}!</h1>
-    
     <table>
         <thead>
             <tr>
@@ -17,6 +14,7 @@
             <tr>
                 <td></td>
                 <td>{{soldier.rank}} {{soldier.last}}, {{soldier.first}}</td>
+                <td ng-hide=""><input value={{soldier.rank}} type="text"><input value={{soldier.last}} type="text"><input value={{soldier.first}} type="text"></td>
                 <td>{{soldier.eval}}</td>
                 <td>{{soldier.ets}}</td>
                 <td>{{soldier.apft}}</td>
@@ -31,6 +29,8 @@
                 <td></td>
                 <td>{{doc.title}}</td>
                 <td>{{doc.date}}</td>
+                <!-- <td><input value={{doc.title}} type="text"></td>
+                <td><input value={{doc.date}} type="text"></td> -->
             </tr>
         </tbody>
     </table>
