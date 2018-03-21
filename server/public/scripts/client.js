@@ -24,9 +24,27 @@ myApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $l
         }
       }
     })
+    .when('/schedule', {
+      templateUrl: '/views/templates/schedule.html',
+      controller: 'ScheduleController as vm',
+      resolve: {
+        getuser : function(UserService){
+          return UserService.getuser();
+        }
+      }
+    })
     .when('/soldier', {
       templateUrl: '/views/templates/soldier.html',
       controller: 'SoldierController as vm',
+      resolve: {
+        getuser : function(UserService){
+          return UserService.getuser();
+        }
+      }
+    })
+    .when('/vehicle', {
+      templateUrl: '/views/templates/vehicle.html',
+      controller: 'VehicleController as vm',
       resolve: {
         getuser : function(UserService){
           return UserService.getuser();

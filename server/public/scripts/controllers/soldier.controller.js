@@ -3,4 +3,6 @@ myApp.controller('SoldierController', ['SoldierService', 'UserService', function
   var self = this;
   self.userService = UserService;
   self.userObject = UserService.userObject;
+  self.soldierService = SoldierService;
+  self.soldierRoster = SoldierService.soldierRoster;
 }]);
