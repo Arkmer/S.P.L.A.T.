@@ -22,20 +22,16 @@
         <label for="password">Rank:</label>
         <input type="text" ng-model="vm.user.rank" placeholder="ex: MAJ" />
     </div>
+    <!-- <div>
+        <label for="password">Unit:</label>
+        <input type="text" ng-model="vm.user.unit" placeholder="ex: 334th BEB Aco A&O" />
+    </div> -->
     <div>
-        <label for="password">Battalion:</label>
-        <input type="text" ng-model="vm.user.battalion" placeholder="ex: 334th BEB" />
-    </div>
-    <div>
-        <label for="password">Company:</label>
-        <input type="text" ng-model="vm.user.company" placeholder="ex: A co" />
-    </div>
-    <div>
-        <label for="password">Platoon:</label>
-        <input type="text" ng-model="vm.user.platoon" placeholder="ex: A&O" />
+        <select ng-model="vm.user.unit">
+            <option ng-repeat="unit as vm.unitObject" value={{unit.id}}>{{unit.unit}}</option>
+        </select>
     </div>
     <input class="btn btn-default" type="submit" name="submit" value="Register" />
     <a href="#!home">Cancel</a>
   </form>
-
 </div>

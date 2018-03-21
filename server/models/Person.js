@@ -9,9 +9,7 @@ const PersonSchema = new Schema({
   first: { type: String, required: true },
   last: { type: String, required: true },
   rank: { type: String, required: true },
-  battalion: { type: String, required: true },
-  company: { type: String, required: true },
-  platoon: { type: String, required: true },
+  unit: { type: String, required: true }
 });
 
 module.exports = mongoose.model('Person', PersonSchema);
