@@ -9,7 +9,28 @@ myApp.service('SoldierService', ['$http', '$location', function($http, $location
         eval: '15Aug18',
         ets: '12Dec19',
         apft: 'Pass',
-        docs: [1, 2, 3, 4, 5]
+        docs: [
+          {
+            title: 'ARCOM',
+            date: '12Jun17'
+          },
+          {
+            title: 'SSD 1',
+            date: '15Sep17'
+          },
+          {
+            title: 'Anti-Terror 1',
+            date: '25Jun17'
+          },
+          {
+            title: 'CROWs Cert',
+            date: '1Oct17'
+          },
+          {
+            title: 'APFT',
+            date: '22Jul17'
+          },
+        ]
       },
       {
         rank: 'SPC',
@@ -18,10 +39,34 @@ myApp.service('SoldierService', ['$http', '$location', function($http, $location
         eval: '15Sep18',
         ets: '12Oct20',
         apft: 'Fail',
-        docs: [1, 2, 3, 4, 5]
+        docs: [
+          {
+            title: 'ARCOM',
+            date: '12Jun17'
+          },
+          {
+            title: 'SSD 1',
+            date: '15Sep17'
+          },
+          {
+            title: 'Anti-Terror 1',
+            date: '25Jun17'
+          },
+          {
+            title: 'CROWs Cert',
+            date: '1Oct17'
+          },
+          {
+            title: 'APFT',
+            date: '22Jul17'
+          },
+        ]
       },
     ];
-  self.simple = function(){
-    console.log('clicked');
+  self.addSoldier = function(){
+    console.log('Add Soldier');
+  }
+  self.addDoc = function(soldier){
+    console.log('Add Doc to', soldier);
   }
   }]);

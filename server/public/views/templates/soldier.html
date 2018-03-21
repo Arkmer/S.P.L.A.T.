@@ -2,25 +2,36 @@
 <div class="container">
 
     <h1 id="welcome" class="lead">Welcome, {{vm.userObject.rank}} {{vm.userObject.last}}!</h1>
-    <button ng-click="vm.soldierService.simple()">Add Soldier</button>
+    
     <table>
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Eval</th>
-                    <th>ETS</th>
-                    <th>APFT</th>
-                    <th>Docs</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="soldier in vm.soldierRoster">
-                    <td>{{soldier.rank}} {{soldier.last}}, {{soldier.first}}</td>
-                    <td>{{soldier.eval}}</td>
-                    <td>{{soldier.ets}}</td>
-                    <td>{{soldier.apft}}</td>
-                    <td ng-repeat="doc in vm.soldierRoster.$index.docs">{{doc}}</td>
-                </tr>
-            </tbody>
-          </table>
+        <thead>
+            <tr>
+                <th><button ng-click="vm.soldierService.addSoldier()">Add Soldier</button></th>
+                <th>Name</th>
+                <th>Eval</th>
+                <th>ETS</th>
+                <th>APFT</th>
+            </tr>
+        </thead>
+        <tbody ng-repeat="soldier in vm.soldierRoster">
+            <tr>
+                <td></td>
+                <td>{{soldier.rank}} {{soldier.last}}, {{soldier.first}}</td>
+                <td>{{soldier.eval}}</td>
+                <td>{{soldier.ets}}</td>
+                <td>{{soldier.apft}}</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>Document</td>
+                <td>Date</td>
+                <td><button ng-click="vm.soldierService.addDoc(soldier)">Add Doc</button></td>
+            </tr>
+            <tr ng-repeat="doc in soldier.docs">
+                <td></td>
+                <td>{{doc.title}}</td>
+                <td>{{doc.date}}</td>
+            </tr>
+        </tbody>
+    </table>
 </div>
