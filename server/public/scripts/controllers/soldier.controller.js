@@ -5,4 +5,5 @@ myApp.controller('SoldierController', ['SoldierService', 'UserService', function
   self.userObject = UserService.userObject;
   self.soldierService = SoldierService;
   self.soldierRoster = SoldierService.soldierRoster;
+  self.addSoldierDoc = SoldierService.addSoldierDoc;
 }]);

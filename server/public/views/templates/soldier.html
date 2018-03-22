@@ -14,7 +14,7 @@
             <tr>
                 <td></td>
                 <td>{{soldier.rank}} {{soldier.last}}, {{soldier.first}}</td>
-                <td ng-hide=""><input value={{soldier.rank}} type="text"><input value={{soldier.last}} type="text"><input value={{soldier.first}} type="text"></td>
+                <!-- <td ng-hide=""><input value={{soldier.rank}} type="text"><input value={{soldier.last}} type="text"><input value={{soldier.first}} type="text"></td> -->
                 <td>{{soldier.eval}}</td>
                 <td>{{soldier.ets}}</td>
                 <td>{{soldier.apft}}</td>
@@ -31,6 +31,9 @@
                 <td>{{doc.date}}</td>
                 <!-- <td><input value={{doc.title}} type="text"></td>
                 <td><input value={{doc.date}} type="text"></td> -->
+                <div>
+                    <button ng-click="vm.addSoldierDoc()" class="">Add Document</button>
+                </div>
             </tr>
         </tbody>
     </table>

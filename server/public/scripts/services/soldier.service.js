@@ -1,6 +1,8 @@
 myApp.service('SoldierService', ['$http', '$location', function($http, $location){
     console.log('SoldierService Loaded');
-    var self = this;
+    let self = this;
+    self.client = filestack.init('AmHeCOZrDRRabvKB4OtaUz');
+    self.newSoldier = {};
     self.soldierRoster = [
       {
         rank: 'PVT',
@@ -69,4 +71,19 @@ myApp.service('SoldierService', ['$http', '$location', function($http, $location
   self.addDoc = function(soldier){
     console.log('Add Doc to', soldier);
   }
+  self.getSoldierRoster = function(){
+
+  }
+  self.addSoldierDoc = function(){
+    console.log('addSoldierDoc');
+    self.client.pick({
+      accept: 'image/*', // Needs to accept PDFs
+      maxFiles: 1
+    }).then(function(result){
+      alert('Successful upload.');
+      self.newSoldier.docUrl = result.filesUploaded[0].url;
+      console.log('addSoldierDoc', self.newSoldier.docUrl);
+      console.log(result, 'result');
+    })
+    }
   }]);
