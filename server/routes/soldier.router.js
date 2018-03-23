@@ -14,7 +14,18 @@ router.post('/', (req, res) => {
           res.sendStatus(201);
         }
       })
-    // check if logged in
   });
+
+router.get('/:unit', (req, res)=>{
+    console.log('getSoldierRoster.GET');
+    let unit = req.params.unit;
+    pool.query(`select * from soldier where unit_id = ${unit};`)
+    .then(function(result) {
+        res.send(result.rows);
+    }).catch(function(error) {
+        console.log('there was a problem', error);
+        res.sendStatus(500);
+    })
+});
 
 module.exports = router;

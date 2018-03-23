@@ -9,6 +9,10 @@ myApp.controller('SoldierController', ['SoldierService', 'UserService', function
   self.newSoldierInfo = SoldierService.newSoldierInfo;
   self.newSoldierInfo.unit = self.userObject.unit_id;
   self.submitSoldier = SoldierService.submitSoldier;
+  self.getSoldierRoster = SoldierService.getSoldierRoster;
+  
+  self.getSoldierRoster(self.userObject.unit_id);
+  console.log('SoldierController', self.soldierRoster);
 
   self.submitSoldierController = function(){
     let completeNewSoldier = self.newSoldierInfo;
