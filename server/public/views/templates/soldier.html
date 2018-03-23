@@ -3,38 +3,37 @@
     <table>
         <thead>
             <tr>
-                <th><button ng-click="vm.soldierService.addSoldier()">Add Soldier</button></th>
-                <th>Name</th>
-                <th>Eval</th>
-                <th>ETS</th>
-                <th>APFT</th>
+                <th ng-hide="newSoldierShowHide"><button ng-click="newSoldierShowHide = true">Add Soldier</button>Name</th>
+                <th ng-show="newSoldierShowHide"><button ng-click="vm.submitSoldierController()">Submit Soldier</button><input ng-model="vm.newSoldierInfo.rank" placeholder="Rank" type="text"><input ng-model="vm.newSoldierInfo.last" placeholder="Last Name" type="text"><input ng-model="vm.newSoldierInfo.first" placeholder="First Name" type="text"></th>
+                <th ng-hide="newSoldierShowHide">Eval</th>
+                <th ng-show="newSoldierShowHide"><input ng-model="vm.newSoldierInfo.eval" placeholder="Eval Date" type="text"></th>
+                <th ng-hide="newSoldierShowHide">ETS</th>
+                <th ng-show="newSoldierShowHide"><input ng-model="vm.newSoldierInfo.ets" placeholder="ETS Date" type="text"></th>
+                <th ng-hide="newSoldierShowHide">APFT</th>
+                <th ng-show="newSoldierShowHide"><input ng-model="vm.newSoldierInfo.apft" placeholder="APFT: Pass/Fail" type="text"></th>
+            </tr>
+            <tr ng-show="newSoldierShowHide">
+                <td>{{vm.newSoldierInfo.rank}} {{vm.newSoldierInfo.last}}, {{vm.newSoldierInfo.first}}</td>
             </tr>
         </thead>
         <tbody ng-repeat="soldier in vm.soldierRoster">
             <tr>
-                <td></td>
                 <td>{{soldier.rank}} {{soldier.last}}, {{soldier.first}}</td>
                 <!-- <td ng-hide=""><input value={{soldier.rank}} type="text"><input value={{soldier.last}} type="text"><input value={{soldier.first}} type="text"></td> -->
                 <td>{{soldier.eval}}</td>
                 <td>{{soldier.ets}}</td>
                 <td>{{soldier.apft}}</td>
             </tr>
-            <tr>
-                <td></td>
+            <!-- <tr>
                 <td>Document</td>
                 <td>Date</td>
-                <td><button ng-click="vm.soldierService.addDoc(soldier)">Add Doc</button></td>
+                <td><button ng-click="vm.addSoldierDoc()">Add Doc</button></td>
             </tr>
             <tr ng-repeat="doc in soldier.docs">
-                <td></td>
                 <td>{{doc.title}}</td>
                 <td>{{doc.date}}</td>
-                <!-- <td><input value={{doc.title}} type="text"></td>
-                <td><input value={{doc.date}} type="text"></td> -->
-                <div>
-                    <button ng-click="vm.addSoldierDoc()" class="">Add Document</button>
-                </div>
-            </tr>
+                <td><button>Delete</button></td>
+            </tr> -->
         </tbody>
     </table>
 </div>
