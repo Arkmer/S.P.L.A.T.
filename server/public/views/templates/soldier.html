@@ -2,10 +2,16 @@
 <div class="container">
     <table>
         <thead>
-            <tr>
-                <th ng-hide="newSoldierShowHide"><button ng-click="newSoldierShowHide = true">Add Soldier</button>Name</th>
-                <th ng-show="newSoldierShowHide">
+            <tr ng-hide="newSoldierShowHide">
+                <th><button ng-click="newSoldierShowHide = true">Add Soldier</button>Name</th>
+                <th>Eval</th>
+                <th>ETS</th>
+                <th>APFT</th>
+            </tr>
+            <tr ng-show="newSoldierShowHide">
+                <th>
                     <button ng-click="vm.submitSoldierController(); newSoldierShowHide = false">Submit Soldier</button>
+                    <button ng-click="newSoldierShowHide = false">Cancel</button>
                     <select ng-model="vm.newSoldierInfo.rank">
                         <option>PVT</option>
                         <option>PV2</option>
@@ -18,33 +24,35 @@
                     </select>
                     <input ng-model="vm.newSoldierInfo.last" placeholder="Last Name" type="text">
                     <input ng-model="vm.newSoldierInfo.first" placeholder="First Name" type="text">
+                    <th ng-show="newSoldierShowHide"><input ng-model="vm.newSoldierInfo.ets" placeholder="ETS Date" type="text"></th>
                 </th>
-                <th ng-hide="newSoldierShowHide">Eval</th>
-                <th ng-show="newSoldierShowHide"><input ng-model="vm.newSoldierInfo.eval" placeholder="Eval Date" type="text"></th>
-                <th ng-hide="newSoldierShowHide">ETS</th>
-                <th ng-show="newSoldierShowHide"><input ng-model="vm.newSoldierInfo.ets" placeholder="ETS Date" type="text"></th>
-                <th ng-hide="newSoldierShowHide">APFT</th>
-                <th ng-show="newSoldierShowHide"><input ng-model="vm.newSoldierInfo.apft" placeholder="APFT: Pass/Fail" type="text"></th>
+                <th><input ng-model="vm.newSoldierInfo.eval" placeholder="Eval Date" type="text"></th>
+                <th>
+                    <select ng-model="vm.newSoldierInfo.rank">
+                        <option>Pass</option>
+                        <option>Fail</option>
+                    </select>
+                </th>
             </tr>
         </thead>
         <tbody ng-repeat="soldier in vm.soldierRoster.list">
-            <tr>
+            <tr ng-click="vm.showHideTableData[$index].show = !vm.showHideTableData[$index].show">
                 <td>{{soldier.rank}} {{soldier.last}}, {{soldier.first}}</td>
                 <!-- <td ng-hide=""><input value={{soldier.rank}} type="text"><input value={{soldier.last}} type="text"><input value={{soldier.first}} type="text"></td> -->
-                <td>{{soldier.eval}}</td>
-                <td>{{soldier.ets}}</td>
+                <td>{{soldier.eval | date: short}}</td>
+                <td>{{soldier.ets | date: short}}</td>
                 <td>{{soldier.apft}}</td>
             </tr>
-            <!-- <tr>
+            <tr ng-if="vm.showHideTableData[$index].show">
                 <td>Document</td>
                 <td>Date</td>
                 <td><button ng-click="vm.addSoldierDoc()">Add Doc</button></td>
             </tr>
-            <tr ng-repeat="doc in soldier.docs">
+            <tr  ng-if="vm.showHideTableData[$index].show" ng-repeat="doc in soldier.docs">
                 <td>{{doc.title}}</td>
                 <td>{{doc.date}}</td>
                 <td><button>Delete</button></td>
-            </tr> -->
+            </tr>
         </tbody>
     </table>
 </div>

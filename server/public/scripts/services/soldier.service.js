@@ -63,10 +63,7 @@ myApp.service('SoldierService', ['$http', '$location', function($http, $location
       method: 'GET',
       url: `/soldier/${unit}`
     }).then(function(response){
-      // self.itemObject.list = response.data;
-      console.log('Before SoldierService.getSoldierRoster', response.data);
       self.soldierRoster.list = response.data;
-      console.log('After SoldierService.getSoldierRoster', self.soldierRoster);
     }).catch(function (error) {
       console.log('SoldierService.getSoldierRoster', error);
     })
