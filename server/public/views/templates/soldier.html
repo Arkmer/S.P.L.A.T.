@@ -42,7 +42,7 @@
                 <td>{{soldier.eval | date: short}}</td>
                 <td>{{soldier.ets | date: short}}</td>
                 <td>{{soldier.apft}}</td>
-                <td ng-if="vm.soldierButtonsShowHide[$index].show">
+                <td ng-if="vm.soldierButtonsShowHide[$index].show" ng-click="vm.showHideTableData[$index].show = !vm.showHideTableData[$index].show">
                     <button>Edit</button>
                     <button>Delete</button>
                 </td>
