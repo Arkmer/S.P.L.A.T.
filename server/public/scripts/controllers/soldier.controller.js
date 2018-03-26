@@ -22,6 +22,11 @@ myApp.controller('SoldierController', ['SoldierService', 'UserService', function
 
   self.toggleSoldierSubform = function (soldier) {
     soldier.showSubtable = !soldier.showSubtable;
-    console.log('show/hide', soldier)
+    // console.log('show/hide', soldier);
+  }
+
+  self.toggleEdit = function (soldier) {
+    soldier.showEdit = !soldier.showEdit;
+    // console.log('show/hide', soldier);
   }
 }]);

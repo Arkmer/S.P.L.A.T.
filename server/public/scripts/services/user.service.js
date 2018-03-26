@@ -2,6 +2,7 @@ myApp.service('UserService', ['$http', '$location', function($http, $location){
   console.log('UserService Loaded');
   var self = this;
   self.userObject = {};
+  self.unitObject = {};
 
   self.getuser = function(){
     console.log('UserService -- getuser');
@@ -31,6 +32,14 @@ myApp.service('UserService', ['$http', '$location', function($http, $location){
 
   self.getUnits = function(){
     console.log('getUnits');
-    $http.get()
+    $http.get({
+      method: 'GET',
+      url: `/api/user/units`
+    }).then(function(response){
+      self.unitObject = response.data;
+      console.log('getUnits', self.unitObject);
+    }).catch(function (error) {
+      console.log('SoldierService.getSoldierRoster', error);
+    })
   }
 }]);

@@ -1,4 +1,4 @@
-myApp.controller('VehicleController', ['VehicleService', 'UserService', function(SoldierService, UserService) {
+myApp.controller('VehicleController', ['VehicleService', 'UserService', function(VehicleService, UserService) {
   console.log('VehicleController created');
   var self = this;
   self.userService = UserService;

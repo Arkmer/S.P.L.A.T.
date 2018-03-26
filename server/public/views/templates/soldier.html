@@ -24,7 +24,9 @@
                     </select>
                     <input ng-model="vm.newSoldierInfo.last" placeholder="Last Name" type="text">
                     <input ng-model="vm.newSoldierInfo.first" placeholder="First Name" type="text">
-                    <th ng-show="newSoldierShowHide"><input ng-model="vm.newSoldierInfo.ets" placeholder="ETS Date" type="text"></th>
+                    <th ng-show="newSoldierShowHide">
+                        <input ng-model="vm.newSoldierInfo.ets" placeholder="ETS Date" type="text">
+                    </th>
                 </th>
                 <th><input ng-model="vm.newSoldierInfo.eval" placeholder="Eval Date" type="text"></th>
                 <th>
@@ -36,20 +38,40 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat-start="soldier in vm.soldierRoster.list" ng-click="vm.toggleSoldierSubform(soldier)" ng-mouseover="vm.soldierButtonsShowHide[$index].show = true" ng-mouseleave="vm.soldierButtonsShowHide[$index].show = false">
-                <td>{{soldier.rank}} {{soldier.last}}, {{soldier.first}}</td>
-                <!-- <td ng-hide=""><input value={{soldier.rank}} type="text"><input value={{soldier.last}} type="text"><input value={{soldier.first}} type="text"></td> -->
-                <td>{{soldier.eval | date: short}}</td>
-                <td>{{soldier.ets | date: short}}</td>
-                <td>{{soldier.apft}}</td>
-                <td ng-if="!soldier.showSubtable">Placeholder Text</td> <!-- This is making the delete and edit buttons easier to click -->
+            <tr ng-repeat-start="soldier in vm.soldierRoster.list" ng-click="vm.toggleSoldierSubform(soldier)">
+                <td ng-if="!soldier.showEdit">{{soldier.rank}} {{soldier.last}}, {{soldier.first}}</td>
+                <td ng-if="soldier.showEdit">
+                    <select value={{soldier.rank}}>
+                        <option>PVT</option>
+                        <option>PV2</option>
+                        <option>PFC</option>
+                        <option>SPC</option>
+                        <option>CPL</option>
+                        <option>SGT</option>
+                        <option>SSG</option>
+                        <option>SFC</option>
+                    </select>
+                    <input value={{soldier.last}} type="text">
+                    <input value={{soldier.first}} type="text">
+                </td>
+                <td ng-if="!soldier.showEdit">{{soldier.eval | date: short}}</td>
+                <td ng-if="soldier.showEdit">
+                    <input value={{soldier.eval}} type="text">
+                </td>
+                <td ng-if="!soldier.showEdit">{{soldier.ets | date: short}}</td>
+                <td ng-if="soldier.showEdit">
+                    <input value={{soldier.ets}} type="text">
+                </td>
+                <td ng-if="!soldier.showEdit">{{soldier.apft}}</td>
+                <td ng-if="soldier.showEdit">
+                    <input value={{soldier.apft}} type="text">
+                </td>
                 <td ng-if="soldier.showSubtable" ng-click="vm.toggleSoldierSubform(soldier)">
-                    <button>Edit</button>
+                    <button ng-click="vm.editSoldier(soldier); vm.toggleEdit(soldier)">Edit</button>
                     <button ng-click="vm.removeSoldier(soldier)">Delete</button>
                 </td>
             </tr>
             <tr ng-if="soldier.showSubtable">
-                
                 <th>Document</th>
                 <th>Doc Link</th>
                 <th><button ng-click="vm.addSoldierDoc()">Add Doc</button></th>

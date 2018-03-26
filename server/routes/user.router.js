@@ -59,4 +59,13 @@ router.get('/logout', (req, res) => {
   res.sendStatus(200);
 });
 
+router.get('/units', (req, res) => {
+    pool.query(`select * from unit;`)
+    .then(function(result) {
+        res.send(result.rows);
+    }).catch(function(error) {
+        res.sendStatus(500);
+    })
+});
+
 module.exports = router;
