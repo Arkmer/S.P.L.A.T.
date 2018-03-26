@@ -22,9 +22,27 @@ router.post('/', (req, res) => {
 router.get('/:unit', (req, res)=>{
     if (req.isAuthenticated()) {
         console.log('getSoldierRoster.GET');
-        let unit = req.params.unit;
-        pool.query(`select * from soldier where unit_id = ${unit};`)
+        let search = req.params.unit;
+        pool.query(`select * from soldier where unit_id = ${search};`)
         .then(function(result) {
+            res.send(result.rows);
+        }).catch(function(error) {
+            console.log('there was a problem', error);
+            res.sendStatus(500);
+        })
+    }else{
+        res.sendStatus(403);
+    }
+});
+
+router.get('/docs/:soldier_id', (req, res)=>{
+    if (req.isAuthenticated()) {
+        console.log('getSoldierRoster.GET');
+        let search = req.params.soldier_id;
+        pool.query(`select * from soldier_doc join doc on doc.id = soldier_doc.doc_id where soldier_id = $1;`,
+        [search]
+        ).then(function(result) {
+            console.log('soldier.router.GET DOCs', result.rows);
             res.send(result.rows);
         }).catch(function(error) {
             console.log('there was a problem', error);

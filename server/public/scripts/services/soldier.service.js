@@ -4,6 +4,7 @@ myApp.service('SoldierService', ['$http', '$location', function($http, $location
     self.client = filestack.init('AmHeCOZrDRRabvKB4OtaUz');
     self.newSoldierInfo = {};
     self.userUnit = 0;
+    self.documents = [];
     self.soldierRoster = {list: [
       // {
       //   rank: 'PVT',
@@ -66,6 +67,10 @@ myApp.service('SoldierService', ['$http', '$location', function($http, $location
     }).then(function(response){
       self.soldierRoster.list = response.data;
       self.userUnit = unit;
+      for(soldier in self.soldierRoster.list){
+        console.log('Soldier Info:', self.soldierRoster.list[soldier].last, self.soldierRoster.list[soldier].id);
+        self.soldierDocs(soldier).then();
+      }
     }).catch(function (error) {
       console.log('SoldierService.getSoldierRoster', error);
     })
@@ -98,4 +103,16 @@ myApp.service('SoldierService', ['$http', '$location', function($http, $location
       console.log(result, 'result');
     })
   }
-  }]);
+
+  self.soldierDocs = function(temp){
+    return $http({
+      method: 'GET',
+      url: `/soldier/docs/${self.soldierRoster.list[temp].id}`
+    }).then((res)=>{
+      self.soldierRoster.list[temp].docs = res.data;
+      console.log(self.soldierRoster.list[temp].last, self.soldierRoster.list[temp].docs);
+    }).catch((err)=>{
+      console.log('SoldierService.getSoldierRoster.Docs', err);
+    })
+  }
+}]);

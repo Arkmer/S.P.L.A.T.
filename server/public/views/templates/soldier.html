@@ -50,12 +50,12 @@
             </tr>
             <tr ng-if="vm.showHideTableData[$index].show">
                 <td>Document</td>
-                <td>Date</td>
+                <td>Doc Link</td>
                 <td><button ng-click="vm.addSoldierDoc()">Add Doc</button></td>
             </tr>
-            <tr  ng-if="vm.showHideTableData[$index].show" ng-repeat="doc in soldier.docs">
-                <td>{{doc.title}}</td>
-                <td>{{doc.date}}</td>
+            <tr ng-if="vm.showHideTableData[$index].show" ng-repeat="doc in soldier.docs">
+                <td>{{doc.name}}</td>
+                <td>{{doc.api_call}}</td>
                 <td><button>Delete</button></td>
             </tr>
         </tbody>
