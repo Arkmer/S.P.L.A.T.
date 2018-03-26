@@ -28,7 +28,7 @@
                 </th>
                 <th><input ng-model="vm.newSoldierInfo.eval" placeholder="Eval Date" type="text"></th>
                 <th>
-                    <select ng-model="vm.newSoldierInfo.rank">
+                    <select ng-model="vm.newSoldierInfo.apft">
                         <option>Pass</option>
                         <option>Fail</option>
                     </select>
@@ -42,9 +42,10 @@
                 <td>{{soldier.eval | date: short}}</td>
                 <td>{{soldier.ets | date: short}}</td>
                 <td>{{soldier.apft}}</td>
+                <td ng-if="!vm.soldierButtonsShowHide[$index].show">Placeholder Text</td> <!-- This is making the delete and edit buttons easier to click -->
                 <td ng-if="vm.soldierButtonsShowHide[$index].show" ng-click="vm.showHideTableData[$index].show = !vm.showHideTableData[$index].show">
                     <button>Edit</button>
-                    <button>Delete</button>
+                    <button ng-click="vm.removeSoldier(soldier)">Delete</button>
                 </td>
             </tr>
             <tr ng-if="vm.showHideTableData[$index].show">

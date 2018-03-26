@@ -3,6 +3,7 @@ myApp.service('SoldierService', ['$http', '$location', function($http, $location
     let self = this;
     self.client = filestack.init('AmHeCOZrDRRabvKB4OtaUz');
     self.newSoldierInfo = {};
+    self.userUnit = 0;
     self.soldierRoster = {list: [
       // {
       //   rank: 'PVT',
@@ -64,8 +65,24 @@ myApp.service('SoldierService', ['$http', '$location', function($http, $location
       url: `/soldier/${unit}`
     }).then(function(response){
       self.soldierRoster.list = response.data;
+      self.userUnit = unit;
     }).catch(function (error) {
       console.log('SoldierService.getSoldierRoster', error);
+    })
+  }
+
+  self.removeSoldier = function(soldier){
+    console.log('removeSoldier', soldier);
+    let removeId = soldier.id;
+    console.log('removeSoldier.id', soldier.id);
+    $http({
+      method: 'DELETE',
+      url: `/soldier/${removeId}`
+    }).then(function(response){
+      console.log('then removeSoldier:', soldier.unit_id);
+      self.getSoldierRoster(soldier.unit_id);
+    }).catch(function (error) {
+      console.log('SoldierService.removeSoldier', error);
     })
   }
 
