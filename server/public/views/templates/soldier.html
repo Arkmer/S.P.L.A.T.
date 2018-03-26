@@ -35,25 +35,26 @@
                 </th>
             </tr>
         </thead>
-        <tbody ng-repeat="soldier in vm.soldierRoster.list">
-            <tr ng-click="vm.showHideTableData[$index].show = !vm.showHideTableData[$index].show" ng-mouseover="vm.soldierButtonsShowHide[$index].show = true" ng-mouseleave="vm.soldierButtonsShowHide[$index].show = false">
+        <tbody>
+            <tr ng-repeat-start="soldier in vm.soldierRoster.list" ng-click="vm.toggleSoldierSubform(soldier)" ng-mouseover="vm.soldierButtonsShowHide[$index].show = true" ng-mouseleave="vm.soldierButtonsShowHide[$index].show = false">
                 <td>{{soldier.rank}} {{soldier.last}}, {{soldier.first}}</td>
                 <!-- <td ng-hide=""><input value={{soldier.rank}} type="text"><input value={{soldier.last}} type="text"><input value={{soldier.first}} type="text"></td> -->
                 <td>{{soldier.eval | date: short}}</td>
                 <td>{{soldier.ets | date: short}}</td>
                 <td>{{soldier.apft}}</td>
-                <td ng-if="!vm.soldierButtonsShowHide[$index].show">Placeholder Text</td> <!-- This is making the delete and edit buttons easier to click -->
-                <td ng-if="vm.soldierButtonsShowHide[$index].show" ng-click="vm.showHideTableData[$index].show = !vm.showHideTableData[$index].show">
+                <td ng-if="!soldier.showSubtable">Placeholder Text</td> <!-- This is making the delete and edit buttons easier to click -->
+                <td ng-if="soldier.showSubtable" ng-click="vm.toggleSoldierSubform(soldier)">
                     <button>Edit</button>
                     <button ng-click="vm.removeSoldier(soldier)">Delete</button>
                 </td>
             </tr>
-            <tr ng-if="vm.showHideTableData[$index].show">
-                <td>Document</td>
-                <td>Doc Link</td>
-                <td><button ng-click="vm.addSoldierDoc()">Add Doc</button></td>
+            <tr ng-if="soldier.showSubtable">
+                
+                <th>Document</th>
+                <th>Doc Link</th>
+                <th><button ng-click="vm.addSoldierDoc()">Add Doc</button></th>
             </tr>
-            <tr ng-if="vm.showHideTableData[$index].show" ng-repeat="doc in soldier.docs">
+            <tr ng-if="soldier.showSubtable" ng-repeat="doc in soldier.docs" ng-repeat-end="">
                 <td>{{doc.name}}</td>
                 <td>{{doc.api_call}}</td>
                 <td><button>Delete</button></td>

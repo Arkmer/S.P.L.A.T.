@@ -20,6 +20,8 @@ myApp.controller('SoldierController', ['SoldierService', 'UserService', function
     self.submitSoldier(completeNewSoldier);
   }
 
-  
-
+  self.toggleSoldierSubform = function (soldier) {
+    soldier.showSubtable = !soldier.showSubtable;
+    console.log('show/hide', soldier)
+  }
 }]);
