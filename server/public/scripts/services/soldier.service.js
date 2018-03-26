@@ -5,7 +5,9 @@ myApp.service('SoldierService', ['$http', '$location', function($http, $location
     self.newSoldierInfo = {};
     self.userUnit = 0;
     self.documents = [];
+    self.newDocument = {};
     self.soldierRoster = {list: []};
+    self.joinSoldierDoc
   self.addSoldier = function(newSoldierShowHide){
     newSoldierShowHide = true;
   }
@@ -58,15 +60,44 @@ myApp.service('SoldierService', ['$http', '$location', function($http, $location
     })
   }
 
-  self.addSoldierDoc = function(){
+  self.addSoldierDoc = function(soldier){
     self.client.pick({
-      accept: '.pdf', // Needs to accept PDFs. Was 'image/*'
+      accept: '.pdf',
       maxFiles: 1
     }).then(function(result){
       alert('Successful upload.');
-      self.newSoldier.docUrl = result.filesUploaded[0].url;
-      console.log('addSoldierDoc', self.newSoldier.docUrl);
-      console.log(result, 'result');
+      self.newDocument = result.filesUploaded[0];
+      self.newDocument.soldier_id = soldier.id;
+      console.log('POST', self.newDocument);
+      $http({
+        method: 'POST',
+        url: '/soldier/doc',
+        data: self.newDocument
+      }).then((res)=>{
+        console.log('GET', result.filesUploaded[0].uploadId);
+        $http({
+          method: 'GET',
+          url: `/soldier/doc/id/:${result.filesUploaded[0].uploadId}`
+        }).then((resp)=>{
+          self.joinSoldierDoc.soldier_id = soldier.id;
+          self.joinSoldierDoc.doc_id = res;
+          console.log('POST #2', self.joinSoldierDoc);
+          $http({
+            method: 'POST',
+            url: '/soldier/doc/join',
+            data: self.joinSoldierDoc
+          }).then((respo)=>{
+          }).catch((error)=>{
+            console.log('SoldierService.getSoldierRoster', error);
+          })
+        }).catch((erro)=>{
+        })
+        // self.getSoldierRoster(send.unit);
+        // self.newSoldierInfo = {};
+        // console.log('TEST unit:', send.unit);
+      }).catch((err)=>{
+        console.log('SoldierService.submitSoldier', err)
+      })
     })
   }
 

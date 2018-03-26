@@ -40,7 +40,7 @@
         <tbody>
             <tr ng-repeat-start="soldier in vm.soldierRoster.list" ng-click="vm.toggleSoldierSubform(soldier)">
                 <td ng-if="!soldier.showEdit">{{soldier.rank}} {{soldier.last}}, {{soldier.first}}</td>
-                <td ng-if="soldier.showEdit">
+                <!-- <td ng-if="soldier.showEdit">
                     <select value={{soldier.rank}}>
                         <option>PVT</option>
                         <option>PV2</option>
@@ -53,32 +53,30 @@
                     </select>
                     <input value={{soldier.last}} type="text">
                     <input value={{soldier.first}} type="text">
-                </td>
+                </td> -->
                 <td ng-if="!soldier.showEdit">{{soldier.eval | date: short}}</td>
-                <td ng-if="soldier.showEdit">
+                <!-- <td ng-if="soldier.showEdit">
                     <input value={{soldier.eval}} type="text">
-                </td>
+                </td> -->
                 <td ng-if="!soldier.showEdit">{{soldier.ets | date: short}}</td>
-                <td ng-if="soldier.showEdit">
+                <!-- <td ng-if="soldier.showEdit">
                     <input value={{soldier.ets}} type="text">
-                </td>
+                </td> -->
                 <td ng-if="!soldier.showEdit">{{soldier.apft}}</td>
-                <td ng-if="soldier.showEdit">
+                <!-- <td ng-if="soldier.showEdit">
                     <input value={{soldier.apft}} type="text">
-                </td>
+                </td> -->
                 <td ng-if="soldier.showSubtable" ng-click="vm.toggleSoldierSubform(soldier)">
-                    <button ng-click="vm.editSoldier(soldier); vm.toggleEdit(soldier)">Edit</button>
+                    <!-- <button ng-click="vm.editSoldier(soldier); vm.toggleEdit(soldier)">Edit</button> -->
                     <button ng-click="vm.removeSoldier(soldier)">Delete</button>
                 </td>
             </tr>
             <tr ng-if="soldier.showSubtable">
                 <th>Document</th>
-                <th>Doc Link</th>
-                <th><button ng-click="vm.addSoldierDoc()">Add Doc</button></th>
+                <th><button ng-click="vm.addSoldierDoc(soldier)">Add Doc</button></th>
             </tr>
             <tr ng-if="soldier.showSubtable" ng-repeat="doc in soldier.docs" ng-repeat-end="">
                 <td>{{doc.name}}</td>
-                <td>{{doc.api_call}}</td>
                 <td><button>Delete</button></td>
             </tr>
         </tbody>

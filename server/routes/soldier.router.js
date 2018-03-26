@@ -4,11 +4,11 @@ const pool = require('../modules/pool.js');
 
 router.post('/', (req, res) => {
     if (req.isAuthenticated()) {
-        console.log('submitSoldier.POST', req.body);
+        // console.log('submitSoldier.POST', req.body);
         pool.query('INSERT INTO soldier (first, last, rank, eval, ets, apft, unit_id) VALUES ($1, $2, $3, $4, $5, $6, $7);',
         [req.body.first, req.body.last, req.body.rank, req.body.eval, req.body.ets, req.body.apft, req.body.unit], (err, result) => {
         if (err) {
-            console.log("Error inserting data: ", err);
+            // console.log("Error inserting data: ", err);
             res.sendStatus(500);
         } else {
             res.sendStatus(201);
@@ -21,13 +21,13 @@ router.post('/', (req, res) => {
 
 router.get('/:unit', (req, res)=>{
     if (req.isAuthenticated()) {
-        console.log('getSoldierRoster.GET');
+        // console.log('getSoldierRoster.GET');
         let search = req.params.unit;
         pool.query(`select * from soldier where unit_id = ${search};`)
         .then(function(result) {
             res.send(result.rows);
         }).catch(function(error) {
-            console.log('there was a problem', error);
+            // console.log('there was a problem', error);
             res.sendStatus(500);
         })
     }else{
@@ -42,6 +42,41 @@ router.get('/docs/:soldier_id', (req, res)=>{
         pool.query(`select * from soldier_doc join doc on doc.id = soldier_doc.doc_id where soldier_id = $1;`,
         [search]
         ).then(function(result) {
+            // console.log('soldier.router.GET DOCs', result.rows);
+            res.send(result.rows);
+        }).catch(function(error) {
+            // console.log('there was a problem', error);
+            res.sendStatus(500);
+        })
+    }else{
+        res.sendStatus(403);
+    }
+});
+
+router.post('/doc', (req, res)=>{
+    if (req.isAuthenticated()) {
+        let newDoc = req.body;
+        // console.log('New Doc in:', newDoc);
+        pool.query('INSERT INTO doc (handle, mimetype, original_path, url, upload_id, name) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id;',
+        [req.body.handle, req.body.mimetype, req.body.originalPath, req.body.url, req.body.uploadId, req.body.originalFile.name]
+        ).then(function(res){
+            res.send(result.rows);
+            res.sendStatus(500);
+        }).catch(function(error) {
+            res.sendStatus(201);
+        })
+    }else{
+        res.sendStatus(403);
+    }
+});
+
+router.get('/doc/id/:doc_id', (req, res)=>{
+    if (req.isAuthenticated()) {
+        // console.log('---- LOOK HERE ----', req.params.doc_id);
+        let search = req.params.doc_id;
+        pool.query(`select * from doc where upload_id = $1;`,
+        [search]
+        ).then(function(result) {
             console.log('soldier.router.GET DOCs', result.rows);
             res.send(result.rows);
         }).catch(function(error) {
@@ -53,15 +88,32 @@ router.get('/docs/:soldier_id', (req, res)=>{
     }
 });
 
+router.post('/doc/join/:id', (req, res)=>{
+    if (req.isAuthenticated()) {
+        let soldier_id = req.body.soldier_id;
+        let doc_id = req.body.doc_id;
+        console.log('Join IDs in:', id);
+        pool.query('INSERT INTO soldier_doc (soldier_id, doc_id) VALUES ($1, $2);',
+        [soldier_id, doc_id]
+        ).then(function(res){
+            res.sendStatus(500);
+        }).catch(function(error) {
+            res.sendStatus(201);
+        })
+    }else{
+        res.sendStatus(403);
+    }
+});
+
 router.delete('/:id', (req, res)=>{
     if (req.isAuthenticated()) {
-        console.log('removeSoldier.DELETE');
+        // console.log('removeSoldier.DELETE');
         let id = req.params.id;
         pool.query(`delete from soldier where id = ${id};`)
         .then(function(result) {
             res.send(result.rows);
         }).catch(function(error) {
-            console.log('there was a problem', error);
+            // console.log('there was a problem', error);
             res.sendStatus(500);
         })
     }else{
