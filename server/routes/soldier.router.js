@@ -56,7 +56,6 @@ router.get('/docs/:soldier_id', (req, res)=>{
 router.post('/doc', (req, res)=>{
     if (req.isAuthenticated()) {
         let newDoc = req.body;
-        // console.log('New Doc in:', newDoc);
         pool.query('INSERT INTO doc (handle, mimetype, original_path, url, upload_id, name) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id;',
         [req.body.handle, req.body.mimetype, req.body.originalPath, req.body.url, req.body.uploadId, req.body.originalFile.name]
         ).then(function(res){
@@ -72,15 +71,12 @@ router.post('/doc', (req, res)=>{
 
 router.get('/doc/id/:doc_id', (req, res)=>{
     if (req.isAuthenticated()) {
-        // console.log('---- LOOK HERE ----', req.params.doc_id);
         let search = req.params.doc_id;
         pool.query(`select * from doc where upload_id = $1;`,
         [search]
         ).then(function(result) {
-            console.log('soldier.router.GET DOCs', result.rows);
-            res.send(result.rows);
+            res.send(result);
         }).catch(function(error) {
-            console.log('there was a problem', error);
             res.sendStatus(500);
         })
     }else{
@@ -88,11 +84,12 @@ router.get('/doc/id/:doc_id', (req, res)=>{
     }
 });
 
-router.post('/doc/join/:id', (req, res)=>{
+router.post('/doc/join', (req, res)=>{
     if (req.isAuthenticated()) {
         let soldier_id = req.body.soldier_id;
         let doc_id = req.body.doc_id;
-        console.log('Join IDs in:', id);
+        console.log('soldier_id:', soldier_id);
+        console.log('doc_id:', doc_id);
         pool.query('INSERT INTO soldier_doc (soldier_id, doc_id) VALUES ($1, $2);',
         [soldier_id, doc_id]
         ).then(function(res){

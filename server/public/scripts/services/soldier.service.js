@@ -60,6 +60,10 @@ myApp.service('SoldierService', ['$http', '$location', function($http, $location
     })
   }
 
+  self.update = function(){
+    console.log('Update:', self.newDocument);
+  }
+
   self.addSoldierDoc = function(soldier){
     self.client.pick({
       accept: '.pdf',
@@ -68,36 +72,54 @@ myApp.service('SoldierService', ['$http', '$location', function($http, $location
       alert('Successful upload.');
       self.newDocument = result.filesUploaded[0];
       self.newDocument.soldier_id = soldier.id;
-      console.log('POST', self.newDocument);
-      $http({
-        method: 'POST',
-        url: '/soldier/doc',
-        data: self.newDocument
-      }).then((res)=>{
-        console.log('GET', result.filesUploaded[0].uploadId);
-        $http({
-          method: 'GET',
-          url: `/soldier/doc/id/:${result.filesUploaded[0].uploadId}`
-        }).then((resp)=>{
-          self.joinSoldierDoc.soldier_id = soldier.id;
-          self.joinSoldierDoc.doc_id = res;
-          console.log('POST #2', self.joinSoldierDoc);
-          $http({
-            method: 'POST',
-            url: '/soldier/doc/join',
-            data: self.joinSoldierDoc
-          }).then((respo)=>{
-          }).catch((error)=>{
-            console.log('SoldierService.getSoldierRoster', error);
-          })
-        }).catch((erro)=>{
-        })
-        // self.getSoldierRoster(send.unit);
-        // self.newSoldierInfo = {};
-        // console.log('TEST unit:', send.unit);
-      }).catch((err)=>{
-        console.log('SoldierService.submitSoldier', err)
-      })
+      // self.update();
+      self.addSoldierDoc1(self.newDocument, soldier);
+    })
+  }
+
+  self.addSoldierDoc1 = function(postObj, soldier){
+    // self.update();
+    console.log('POST #1', soldier);
+    $http({
+      method: 'POST',
+      url: '/soldier/doc',
+      data: postObj
+    }).then((res)=>{
+      self.addSoldierDoc2(self.newDocument, soldier);
+    }).catch((err)=>{
+      console.log('SoldierService.submitSoldier', err)
+    })
+  }
+
+  self.addSoldierDoc2 = function(getObj, soldier){
+    // self.update();
+    console.log('GET #1', soldier);
+    // console.log('postObj.uploadId', getObj.uploadId);
+    $http({
+      method: 'GET',
+      url: `/soldier/doc/id/${getObj.uploadId}`
+    }).then((res)=>{
+      console.log('GET response:', res.data.rows[0].id);
+      self.newDocument.doc_id = res.data.rows[0].id;
+      self.update();
+      self.addSoldierDoc3(self.newDocument, soldier);
+    }).catch((erro)=>{
+      console.log('Catch', erro);
+    })
+  }
+
+  self.addSoldierDoc3 = function(postObj, soldier){
+    console.log('POST #2', soldier);
+    $http({
+      method: 'POST',
+      url: '/soldier/doc/join',
+      data: postObj
+    }).then((res)=>{
+      console.log('soldier.unit_id', soldier.unit_id);
+      self.getSoldierRoster(soldier.unit_id, soldier);
+      self.newDocument = {};
+    }).catch((error)=>{
+      console.log('SoldierService.getSoldierRoster', error);
     })
   }
 
