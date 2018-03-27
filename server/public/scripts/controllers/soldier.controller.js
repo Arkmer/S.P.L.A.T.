@@ -12,6 +12,7 @@ myApp.controller('SoldierController', ['SoldierService', 'UserService', function
   self.getSoldierRoster = SoldierService.getSoldierRoster;
   self.removeSoldier = SoldierService.removeSoldier;
   self.newDocument = SoldierService.newDocument;
+  self.removeDoc = SoldierService.removeDoc;
   
   self.getSoldierRoster(self.userObject.unit_id);
 

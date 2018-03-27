@@ -118,4 +118,22 @@ router.delete('/:id', (req, res)=>{
     }
 });
 
+router.delete('/doc/delete/:doc_id', (req, res)=>{
+    if (req.isAuthenticated()) {
+        console.log('You\'ve come this far!');
+        let id = req.params.doc_id;
+        pool.query(`delete from doc where id = $1;`, [id])
+        pool.query(`delete from soldier_doc where doc_id = $1;`, [id])
+        .then(function(result) {
+            res.send(result.rows);
+        }).catch(function(error) {
+            // console.log('there was a problem', error);
+            res.sendStatus(500);
+        })
+    }else{
+        res.sendStatus(403);
+    }
+})
+
+
 module.exports = router;

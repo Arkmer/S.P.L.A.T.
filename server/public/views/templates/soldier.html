@@ -77,7 +77,7 @@
             </tr>
             <tr ng-if="soldier.showSubtable" ng-repeat="doc in soldier.docs" ng-repeat-end="">
                 <td>{{doc.name}}</td>
-                <td><button>Delete</button></td>
+                <td><button ng-click="vm.removeDoc(doc, soldier)">Delete</button></td>
             </tr>
         </tbody>
     </table>
