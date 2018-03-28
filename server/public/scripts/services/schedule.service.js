@@ -56,13 +56,55 @@ myApp.service('ScheduleService', ['$http', '$location', function($http, $locatio
           ]
         },
       ]
+    },
+    {
+      date: '12/4/2019',
+      location: 'CRTC',
+      docs: [
+        {
+          name: 'SDZ'
+        },
+        {
+          name: 'Authorization'
+        },
+        {
+          name: 'Range Brief'
+        }
+      ],
+      tasks: [
+        {
+          name: 'Formation',
+          command: 'SGT',
+          location: '10-131',
+          docs: [
+            {
+              name: 'DRA'
+            },
+            {
+              name: 'Roster'
+            },
+            {
+              name: 'Training Schedule'
+            },
+          ]
+        },
+        {
+          name: 'Rifle Range',
+          command: 'SGT',
+          location: 'A2',
+          docs: [
+            {
+              name: 'DRA'
+            },
+            {
+              name: 'Roster'
+            },
+            {
+              name: 'Training Schedule'
+            },
+          ]
+        },
+      ]
     }
   ]};
-
-  // Tier 2
-  // self.tasksDisplay = {};
-  // self.dateDocumentsDisplay = {};
-
-  // Tier 3
-  // self.taskDocumentsDisplay = {};
 }]);

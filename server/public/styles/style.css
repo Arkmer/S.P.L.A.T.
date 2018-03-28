@@ -107,3 +107,7 @@ body, html {
 .control {
   height: 35px;
 }
+
+.devDot {
+  color: white;
+} /* Make background color. Keep it secret, keep it safe. */

@@ -5,4 +5,10 @@ myApp.controller('ScheduleController', ['ScheduleService', 'UserService', functi
   self.userObject = UserService.userObject;
   self.scheduleService = ScheduleService;
   self.datesDisplay = ScheduleService.datesDisplay;
+
+
+  self.toggleDateSubform = function (date) {
+    date.showSubtable = !date.showSubtable;
+    console.log('show/hide', date);
+  }
 }]);
