@@ -54,18 +54,18 @@ body, html {
   border-radius: 0px;
 }
 
-ul {
+.navBar {
   list-style-type: none;
   margin: 0;
   padding: 0;
   overflow: hidden;
 }
 
-li {
+.navButton {
   float: left;
 }
 
-li a {
+.navButton a {
   display: block;
   color: white;
   text-align: center;
@@ -74,7 +74,36 @@ li a {
 }
 
 /* Change the link color to #111 (black) on hover */
-li a:hover {
+.navButton a:hover {
   text-decoration: underline;
   color: #eee;
+}
+
+.redDiv {
+  border-style: solid;
+  border-color: red;
+}
+
+.blueDiv {
+  border-style: solid;
+  border-color: deepskyblue;
+}
+
+.greenDiv {
+  border-style: solid;
+  border-color: green;
+}
+
+.yellowDiv {
+  border-style: solid;
+  border-color: yellow;
+}
+
+.purpleDiv {
+  border-style: solid;
+  border-color: orchid;
+}
+
+.control {
+  height: 35px;
 }

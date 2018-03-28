@@ -1,6 +1,49 @@
 <div ng-include="'views/partials/nav.html'"></div>
 <div class="container">
-
-    <h1 id="welcome" class="lead">Welcome, {{vm.userObject.rank}} {{vm.userObject.last}}!</h1>
-    <p>Schedule</p>
+    <div class="row">
+        <div class="">
+            <div class="col-xs-2 col-sm-2 col-md-2 col-ld-2">Date</div>
+            <div class="col-xs-2 col-sm-2 col-md-2 col-ld-2">Location</div>
+        </div>
+    </div>
+    <div class="row">
+        <div>
+            <div ng-repeat="date in vm.datesDisplay.list" class="">
+                <!-- Dates Repeat in Tier 1 -->
+                <div class="redDiv">
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-ld-2">{{date.date}}</div>
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-ld-2">{{date.location}}</div><br>
+                </div>
+                <!-- Dates Stop in Tier 1 -->
+                <!-- Documents Card Repeat in Tier 2 -->
+                <div class="col-xs-2 col-sm-2 col-md-2 col-ld-2 greenDiv">
+                    <div class="">General Docs</div>
+                    <div ng-repeat="doc in date.docs">
+                        <div class="">{{doc.name}}</div>
+                    </div>
+                </div> <!-- Documents Card Stop in Tier 2 -->
+                <!-- Tasks Card Repeat in Tier 2 -->
+                <div class="col-xs-10 col-sm-10 col-md-10 col-ld-10 yellowDiv">
+                    <div class="col-xs-4 col-sm-4 col-md-4 col-ld-4 control">Tasks</div>
+                    <div class="col-xs-4 col-sm-4 col-md-4 col-ld-4 control">OIC/NCOIC</div>
+                    <div class="col-xs-4 col-sm-4 col-md-4 col-ld-4 control">Location</div><br>
+                    <div ng-repeat="task in date.tasks">
+                        <div class="col-xs-4 col-sm-4 col-md-4 col-ld-4 control">{{task.name}}</div>
+                        <div class="col-xs-4 col-sm-4 col-md-4 col-ld-4 control">{{task.command}}</div>
+                        <div class="col-xs-4 col-sm-4 col-md-4 col-ld-4 control">{{task.location}}</div>
+                        <!-- Task Documents Card Repeat in Tier 2 -->
+                        <div class="purpleDiv">
+                            <div class="">Task Documents</div><br>
+                            <div class="blueDiv">
+                                <div ng-repeat="doc in task.docs" class="control">
+                                    <div class="col-xs-6 col-sm-6 col-md-6 col-ld-6 control">{{doc.name}}</div>
+                                    <div class="col-xs-6 col-sm-6 col-md-6 col-ld-6 control"><button>Delete</button></div>
+                                </div>
+                            </div>
+                        </div> <!-- Task Documents Card End -->
+                    </div> <!-- Tasks Repeat End -->
+                </div> <!-- Tasks Card End -->
+            </div>
+        </div>
+    </div>
 </div>

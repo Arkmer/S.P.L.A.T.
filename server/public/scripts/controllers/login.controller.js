@@ -45,4 +45,9 @@ myApp.controller('LoginController', ['$http', '$location', 'UserService', functi
           });
       }
     }
+    
+  self.unitObject = UserService.unitObject;
+  self.getUnits = UserService.getUnits;
+
+  self.getUnits();
 }]);

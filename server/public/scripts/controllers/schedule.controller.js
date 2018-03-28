@@ -4,4 +4,5 @@ myApp.controller('ScheduleController', ['ScheduleService', 'UserService', functi
   self.userService = UserService;
   self.userObject = UserService.userObject;
   self.scheduleService = ScheduleService;
+  self.datesDisplay = ScheduleService.datesDisplay;
 }]);

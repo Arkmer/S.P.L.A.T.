@@ -9,6 +9,7 @@ const sessionConfig = require('./modules/session-middleware');
 const userRouter = require('./routes/user.router');
 const adminRouter = require('./routes/admin.router');
 const soldierRouter = require('./routes/soldier.router');
+const scheduleRouter = require('./routes/schedule.router');
 
 
 // Body parser middleware
@@ -26,6 +27,7 @@ app.use(passport.session());
 app.use('/api/user', userRouter);
 app.use('/admin', adminRouter);
 app.use('/soldier', soldierRouter);
+app.use('/schedule', scheduleRouter);
 
 // Serve static files
 app.use(express.static('server/public'));
