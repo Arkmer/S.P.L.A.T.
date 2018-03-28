@@ -76,7 +76,7 @@
                 <th><button ng-click="vm.addSoldierDoc(soldier)">Add Doc</button></th>
             </tr>
             <tr ng-if="soldier.showSubtable" ng-repeat="doc in soldier.docs" ng-repeat-end="">
-                <td>{{doc.name}}</td>
+                <td><a href="{{doc.url}}">{{doc.name}}</a></td>
                 <td><button ng-click="vm.removeDoc(doc, soldier)">Delete</button></td>
             </tr>
         </tbody>
