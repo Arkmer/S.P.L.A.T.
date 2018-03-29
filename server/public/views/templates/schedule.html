@@ -2,14 +2,14 @@
 <div class="container">
     <div class="row">
         <div class="">
-            <div class="col-xs-2 col-sm-2 col-md-2 col-ld-2 divHeightControl">Date</div>
-            <div class="col-xs-2 col-sm-2 col-md-2 col-ld-2 divHeightControl">Location</div>
-            <div class="col-xs-8 col-sm-8 col-md-8 col-ld-8"><button ng-click="vm.dateInputShow()" class="btn-xs btn-success">Add</button></div>
+            <div class="col-xs-3 col-sm-3 col-md-3 col-ld-3 divHeightControl">Date</div>
+            <div class="col-xs-3 col-sm-3 col-md-3 col-ld-3 divHeightControl">Location</div>
+            <div class="col-xs-6 col-sm-6 col-md-6 col-ld-6"><button ng-if="!vm.addInputs" ng-click="vm.dateInputShow()" class="btn-xs btn-success">Add</button></div>
         </div>
         <div ng-if="vm.addInputs">
-            <div class="col-xs-2 col-sm-2 col-md-2 col-ld-2 divHeightControl"><input type="text"></div>
-            <div class="col-xs-2 col-sm-2 col-md-2 col-ld-2 divHeightControl"><input type="text"></div>
-            <div class="col-xs-8 col-sm-8 col-md-8 col-ld-8"><button class="btn-xs btn-success">Finish</button></div>
+            <div class="col-xs-3 col-sm-3 col-md-3 col-ld-3 divHeightControl"><input type="date"></div>
+            <div class="col-xs-3 col-sm-3 col-md-3 col-ld-3 divHeightControl"><input type="text"></div>
+            <div class="col-xs-6 col-sm-6 col-md-6 col-ld-6"><button ng-click="vm.dateInputShow()" class="btn-xs btn-success">Finish</button><button ng-click="vm.dateInputShow()" class="btn-xs btn-warning">Cancel</button></div>
         </div>
     </div>
     <div class="row">
@@ -17,9 +17,10 @@
             <!-- Dates Repeat in Tier 1 -->
             <div  ng-click="vm.toggleDateSubform(date)" class="hoverDiv divHeightControl textAlign5">
                 <div>
-                    <div class="col-xs-2 col-sm-2 col-md-2 col-ld-2">{{date.date}}</div>
-                    <div class="col-xs-2 col-sm-2 col-md-2 col-ld-2">{{date.location}}</div>
-                </div><br>
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-ld-3">{{date.date}}</div>
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-ld-3">{{date.location}}</div>
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-ld-6"></div>
+                </div>
             </div>
             <!-- Dates Stop in Tier 1 -->
             <!-- Documents Card Repeat in Tier 2 -->
