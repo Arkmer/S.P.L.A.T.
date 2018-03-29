@@ -104,10 +104,60 @@ body, html {
   border-color: orchid;
 }
 
-.control {
-  height: 35px;
+.devDot {
+  color: white; /* Make this the sam e as the background. */
 }
 
-.devDot {
-  color: white;
-} /* Make background color. Keep it secret, keep it safe. */
+.navbar {
+  border-radius: 0px !important;
+}
+
+.hoverDiv:hover {
+  background: #f5f5f5
+}
+
+/* Schedule Styles */
+
+.greySeparator {
+  border-bottom-style: solid;
+  border-color: gainsboro;
+  border-width: 1px;
+}
+
+.divHeightControl {
+  height: 30px;
+}
+
+.textAlign5 {
+  padding-top: 5px;
+}
+
+.textAlign4 {
+  padding-top: 4px;
+}
+
+.textAlign3 {
+  padding-top: 3px;
+}
+
+.textAlign2 {
+  padding-top: 2px;
+}
+
+.textAlign1 {
+  padding-top: 1px;
+}
+
+
+.btn-xs {
+  float: right;
+  width: 50px;
+}
+
+div {
+  overflow: hidden;
+}
+
+.font10 {
+  /* font-size: 10px */
+}

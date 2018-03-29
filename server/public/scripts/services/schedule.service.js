@@ -13,19 +13,14 @@ myApp.service('ScheduleService', ['$http', '$location', function($http, $locatio
       location: 'CRTC',
       docs: [
         {
-          name: 'SDZ'
+          name: 'DRA'
         },
-        {
-          name: 'Authorization'
-        },
-        {
-          name: 'Range Brief'
-        }
       ],
       tasks: [
         {
           name: 'Formation',
-          command: 'SGT',
+          time: '12:30',
+          command: 'SGT Rhae',
           location: '10-131',
           docs: [
             {
@@ -41,7 +36,8 @@ myApp.service('ScheduleService', ['$http', '$location', function($http, $locatio
         },
         {
           name: 'Rifle Range',
-          command: 'SGT',
+          time: '12:30',
+          command: 'SGT Casey',
           location: 'A2',
           docs: [
             {
@@ -52,6 +48,15 @@ myApp.service('ScheduleService', ['$http', '$location', function($http, $locatio
             },
             {
               name: 'Training Schedule'
+            },
+            {
+              name: 'Authorization'
+            },
+            {
+              name: 'Range Brief'
+            },
+            {
+              name: 'SDZ'
             },
           ]
         },
@@ -62,19 +67,14 @@ myApp.service('ScheduleService', ['$http', '$location', function($http, $locatio
       location: 'CRTC',
       docs: [
         {
-          name: 'SDZ'
+          name: 'DRA'
         },
-        {
-          name: 'Authorization'
-        },
-        {
-          name: 'Range Brief'
-        }
       ],
       tasks: [
         {
           name: 'Formation',
-          command: 'SGT',
+          time: '12:30',
+          command: 'SGT Lentz',
           location: '10-131',
           docs: [
             {
@@ -90,8 +90,46 @@ myApp.service('ScheduleService', ['$http', '$location', function($http, $locatio
         },
         {
           name: 'Rifle Range',
-          command: 'SGT',
+          time: '12:30',
+          command: 'SGT Affolter',
           location: 'A2',
+          docs: [
+            {
+              name: 'DRA'
+            },
+            {
+              name: 'Roster'
+            },
+            {
+              name: 'Training Schedule'
+            },
+            {
+              name: 'Authorization'
+            },
+            {
+              name: 'Range Brief'
+            },
+            {
+              name: 'SDZ'
+            },
+          ]
+        },
+      ]
+    },
+    {
+      date: '12/4/2019',
+      location: 'CRTC',
+      docs: [
+        {
+          name: 'DRA'
+        },
+      ],
+      tasks: [
+        {
+          name: 'Formation',
+          time: '12:30',
+          command: 'SGT Rhae',
+          location: '10-131',
           docs: [
             {
               name: 'DRA'
@@ -104,7 +142,87 @@ myApp.service('ScheduleService', ['$http', '$location', function($http, $locatio
             },
           ]
         },
+        {
+          name: 'Rifle Range',
+          time: '12:30',
+          command: 'SGT Casey',
+          location: 'A2',
+          docs: [
+            {
+              name: 'DRA'
+            },
+            {
+              name: 'Roster'
+            },
+            {
+              name: 'Training Schedule'
+            },
+            {
+              name: 'Authorization'
+            },
+            {
+              name: 'Range Brief'
+            },
+            {
+              name: 'SDZ'
+            },
+          ]
+        },
       ]
-    }
+    },
+    {
+      date: '12/4/2019',
+      location: 'CRTC',
+      docs: [
+        {
+          name: 'DRA'
+        },
+      ],
+      tasks: [
+        {
+          name: 'Formation',
+          time: '12:30',
+          command: 'SGT Lentz',
+          location: '10-131',
+          docs: [
+            {
+              name: 'DRA'
+            },
+            {
+              name: 'Roster'
+            },
+            {
+              name: 'Training Schedule'
+            },
+          ]
+        },
+        {
+          name: 'Rifle Range',
+          time: '12:30',
+          command: 'SGT Affolter',
+          location: 'A2',
+          docs: [
+            {
+              name: 'DRA'
+            },
+            {
+              name: 'Roster'
+            },
+            {
+              name: 'Training Schedule'
+            },
+            {
+              name: 'Authorization'
+            },
+            {
+              name: 'Range Brief'
+            },
+            {
+              name: 'SDZ'
+            },
+          ]
+        },
+      ]
+    },
   ]};
 }]);
