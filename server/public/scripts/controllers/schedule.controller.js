@@ -14,6 +14,7 @@ myApp.controller('ScheduleController', ['ScheduleService', 'UserService', functi
   self.addTask1 = ScheduleService.addTask1;
   self.newTask = ScheduleService.newTask;
   self.deleteTask = ScheduleService.deleteTask;
+  self.addTaskDoc = ScheduleService.addTaskDoc;
 
   self.getDates(self.userObject.unit_id);
 
@@ -30,7 +31,6 @@ myApp.controller('ScheduleController', ['ScheduleService', 'UserService', functi
 
   self.toggleTaskInputs = function (date) {
     date.showTaskInputs = !date.showTaskInputs;
-    console.log('toggleTaskInputs', date.showTaskInputs);
   }
 
   self.dateInputShow = function (){

@@ -166,4 +166,51 @@ router.delete('/task/delete/:id', (req, res)=>{
     }
 })
 
+router.post('/taskDoc', (req, res)=>{
+    if (req.isAuthenticated()) {
+        let newDoc = req.body;
+        pool.query('INSERT INTO doc (handle, mimetype, original_path, url, upload_id, name) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id;',
+        [req.body.handle, req.body.mimetype, req.body.originalPath, req.body.url, req.body.uploadId, req.body.originalFile.name]
+        ).then(function(result){
+            res.send(result.rows);
+        }).catch(function(error) {
+            res.sendStatus(201);
+        })
+    }else{
+        res.sendStatus(403);
+    }
+});
+
+router.post('/taskDoc/join', (req, res)=>{
+    if (req.isAuthenticated()) {
+        let task_id = req.body.task_id;
+        let doc_id = req.body.doc_id;
+        console.log('task_id', task_id, 'doc_id', doc_id);
+        pool.query('INSERT INTO task_doc (task_id, doc_id) VALUES ($1, $2);',
+        [task_id, doc_id]
+        ).then(function(res){
+            res.sendStatus(500);
+        }).catch(function(error) {
+            res.sendStatus(201);
+        })
+    }else{
+        res.sendStatus(403);
+    }
+});
+
+router.get('/taskDoc/all/:date_id', (req, res)=>{
+    if (req.isAuthenticated()) {
+        let search = req.params.date_id;
+        pool.query(`select * from task_doc join doc on doc.id = task_doc.doc_id where task_id = $1;`,
+        [search]
+        ).then(function(result) {
+            res.send(result.rows);
+        }).catch(function(error) {
+            res.sendStatus(500);
+        })
+    }else{
+        res.sendStatus(403);
+    }
+});
+
 module.exports = router;

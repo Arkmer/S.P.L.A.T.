@@ -51,7 +51,7 @@
             </div> <!-- General Documents Card Stop in Tier 2 -->
             <!-- Tasks Card Repeat in Tier 2 -->
             <div ng-if="date.showSubtable" class="col-xs-9 col-sm-9 col-md-9 col-ld-9">
-                <div ng-if="!date.showTaskInputs" class="divHeightControl textAlign4 greySeparator font10">
+                <div ng-if="!date.showTaskInputs" class="divHeightControl textAlign4 greySeparator ">
                     <div class="col-xs-3 col-sm-3 col-md-3 col-ld-3">Tasks</div>
                     <div class="col-xs-2 col-sm-2 col-md-2 col-ld-2">Time</div>
                     <div class="col-xs-3 col-sm-3 col-md-3 col-ld-3">OIC/NCOIC</div>
@@ -60,7 +60,7 @@
                         <button ng-click="vm.toggleTaskInputs(date)" class="btn-xs btn-success" style="float: right">Add</button>
                     </div>
                 </div>
-                <div ng-if="date.showTaskInputs" class="divHeightControl textAlign4 greySeparator font10">
+                <div ng-if="date.showTaskInputs" class="divHeightControl textAlign4 greySeparator">
                     <div class="col-xs-3 col-sm-3 col-md-3 col-ld-3">
                         <input ng-model="vm.newTask.name" type="text" placeholder="Task">
                     </div>
@@ -79,7 +79,7 @@
                     </div>
                 </div>
                 <div ng-repeat="task in date.tasks" class="greySeparator">
-                    <div ng-click="vm.toggleTaskSubform(task)" class="hoverDiv divHeightControl textAlign4 font10">
+                    <div ng-click="vm.toggleTaskSubform(task)" class="hoverDiv divHeightControl textAlign4">
                         <div class="col-xs-3 col-sm-3 col-md-3 col-ld-3">{{task.name}}</div>
                         <div class="col-xs-2 col-sm-2 col-md-2 col-ld-2">{{task.time | date: 'HH:m'}}</div>
                         <div class="col-xs-3 col-sm-3 col-md-3 col-ld-3">{{task.command}}</div>
@@ -90,12 +90,16 @@
                     </div>
                     <!-- Task Documents Card Repeat in Tier 3 -->
                     <div ng-if="task.showSubtable" class="">
-                        <div class="">
-                            <div ng-repeat="doc in task.docs" class="divHeightControl textAlign2 font10">
-                                <div class="col-xs-10 col-sm-10 col-md-10 col-ld-10">&nbsp;&nbsp;&nbsp;&nbsp;{{doc.name}}</div>
-                                <div class="col-xs-2 col-sm-2 col-md-2 col-ld-2">
-                                    <button class="btn-xs btn-danger">Delete</button>
-                                </div>
+                        <div class="divHeightControl textAlign2 ">
+                            <div class="col-xs-10 col-sm-10 col-md-10 col-ld-10">&nbsp;&nbsp;&nbsp;&nbsp;Task Files</div>
+                            <div class="col-xs-2 col-sm-2 col-md-2 col-ld-2">
+                                <button class="btn-xs btn-success" ng-click="vm.addTaskDoc(task, date)">Add</button>
+                            </div>
+                        </div>
+                        <div ng-repeat="doc in task.docs" class="divHeightControl textAlign2">
+                            <div class="col-xs-10 col-sm-10 col-md-10 col-ld-10">&nbsp;&nbsp;&nbsp;&nbsp;{{doc.name}}</div>
+                            <div class="col-xs-2 col-sm-2 col-md-2 col-ld-2">
+                                <button class="btn-xs btn-danger">Delete</button>
                             </div>
                         </div>
                     </div> <!-- Task Documents Card End -->

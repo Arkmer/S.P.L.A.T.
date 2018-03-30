@@ -12,7 +12,6 @@ myApp.service('ScheduleService', ['$http', '$location', function($http, $locatio
   // ----!! THIS IS WHERE EVERYTHING GOES !!----
   self.datesDisplay = {list: []};
 
-
   // ---- Page Resetting Functions ----
   self.getDates = function(unit_id){
     $http({
@@ -29,28 +28,43 @@ myApp.service('ScheduleService', ['$http', '$location', function($http, $locatio
     })
   }
 
-  self.getGenDocs = function(temp){
+  self.getGenDocs = function(date){
     return $http({
       method: 'GET',
-      url: `/schedule/genDoc/all/${self.datesDisplay.list[temp].id}`
+      url: `/schedule/genDoc/all/${self.datesDisplay.list[date].id}`
     }).then((res)=>{
-      self.datesDisplay.list[temp].docs = res.data;
+      self.datesDisplay.list[date].docs = res.data;
     }).catch((err)=>{
       console.log('getGenDocs', err);
     })
   }
 
-  self.getTasks = function(temp){
+  self.getTasks = function(date){
     return $http({
       method: 'GET',
-      url: `/schedule/task/all/${self.datesDisplay.list[temp].id}`
+      url: `/schedule/task/all/${self.datesDisplay.list[date].id}`
     }).then((res)=>{
-      self.datesDisplay.list[temp].tasks = res.data;
+      self.datesDisplay.list[date].tasks = res.data;
+      console.log('Task Objects:', res.data);
+      for(task in self.datesDisplay.list[date].tasks){
+        self.getTaskDocs(date, task).then();
+      }
     }).catch((err)=>{
       console.log('getGenDocs', err);
     })
   }
 
+  self.getTaskDocs = function(date, task){
+    console.log('Task:', self.datesDisplay.list[date].tasks[task].id);
+    return $http({
+      method: 'GET',
+      url: `/schedule/taskDoc/all/${self.datesDisplay.list[date].tasks[task].id}`
+    }).then((res)=>{
+      self.datesDisplay.list[date].tasks[task].docs = res.data;
+    }).catch((err)=>{
+      console.log('getGenDocs', err);
+    })
+  }
 
   // ---- Date Functions ----
   self.addDate = function(unit_id){
@@ -80,7 +94,6 @@ myApp.service('ScheduleService', ['$http', '$location', function($http, $locatio
     })
   }
 
-
   // ---- General Document Functions ----
   self.addGenDoc = function(date){
     self.client.pick({
@@ -90,7 +103,6 @@ myApp.service('ScheduleService', ['$http', '$location', function($http, $locatio
       alert('Successful upload.');
       self.newGenDoc = result.filesUploaded[0];
       self.newGenDoc.date_id = date.id;
-      console.log('newGenDoc', self.newGenDoc);
       self.addGenDoc1(self.newGenDoc, date);
     })
   }
@@ -133,7 +145,6 @@ myApp.service('ScheduleService', ['$http', '$location', function($http, $locatio
   }
 
   self.deleteGenDoc = function(doc, date){
-    console.log('Decument to Delete', doc, 'date for Refresh:', date);
     $http({
       method: 'DELETE',
       url: `schedule/genDoc/delete/${doc.doc_id}`
@@ -144,12 +155,10 @@ myApp.service('ScheduleService', ['$http', '$location', function($http, $locatio
     })
   }
 
-
   // ---- Task Functions ----
   self.addTask1 = function(date){
     self.newTask.date_id = date.id;
     self.newTask.time = self.newTask.time.toString().substring(16, 24);
-    console.log('Object', self.newTask.time);
     $http({
       method: 'POST',
       url: '/schedule/task',
@@ -157,14 +166,17 @@ myApp.service('ScheduleService', ['$http', '$location', function($http, $locatio
     }).then((res)=>{
       self.newTask.task_id = res.data[0].id;
       self.getDates(date.unit_id);
-      self.newTask = {};
+      self.newTask.name = '';
+      self.newTask.time = '';
+      self.newTask.command = '';
+      self.newTask.location = '';
+      self.newTask.date_id = '';
     }).catch((err)=>{
       console.log('addTask1', err)
     })
   }
 
   self.deleteTask = function(task, date){
-    console.log('Task to Delete', task, 'date for Refresh:', date);
     $http({
       method: 'DELETE',
       url: `schedule/task/delete/${task.id}`
@@ -174,4 +186,61 @@ myApp.service('ScheduleService', ['$http', '$location', function($http, $locatio
       console.log('deleteGenDoc', err);
     })
   }
+
+  // ---- Task Document Functions ----
+  self.addTaskDoc = function(task, date){
+    console.log('Task:', task, 'Date:', date);
+    self.client.pick({
+      accept: '.pdf',
+      maxFiles: 1
+    }).then(function(result){
+      alert('Successful upload.');
+      self.newTaskDoc = result.filesUploaded[0];
+      self.newTaskDoc.task_id = task.id;
+      console.log('addTaskDoc', self.newTaskDoc);
+      self.addTaskDoc1(self.newTaskDoc, task, date);
+    })
+  }
+
+  self.addTaskDoc1 = function(postObj, task, date){
+    $http({
+      method: 'POST',
+      url: '/schedule/taskDoc',
+      data: postObj
+    }).then((res)=>{
+      console.log(res);
+      self.newTaskDoc.doc_id = res.data[0].id;
+      // console.log('doc_id:', self.newTaskDoc.doc_id);
+      self.addTaskDoc2(self.newTaskDoc, task, date);
+    }).catch((err)=>{
+      console.log('addTaskDoc1', err)
+    })
+  }
+
+  self.addTaskDoc2 = function(postObj, task, date){
+    console.log('postObj:', postObj);
+    $http({
+      method: 'POST',
+      url: '/schedule/taskDoc/join',
+      data: postObj
+    }).then((res)=>{
+      self.getDates(date.unit_id);
+      self.newTaskDoc = {};
+    }).catch((err)=>{
+      console.log('addTaskDoc2', err);
+    })
+  }
+
+  // self.deleteTaskDoc = function(doc, task){
+  //   console.log('Decument to Delete', doc, 'task for Refresh:', task);
+  //   $http({
+  //     method: 'DELETE',
+  //     url: `schedule/taskDoc/delete/${doc.doc_id}`
+  //   }).then(function(response){
+  //     self.getDates(date.unit_id);
+  //   }).catch(function (err) {
+  //     console.log('deleteTaskDoc', err);
+  //   })
+  // }
+
 }]);
