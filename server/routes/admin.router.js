@@ -32,11 +32,11 @@ router.post('/register', (req, res, next) => {
     rank: req.body.rank,
     unit: req.body.unit
   };
-  console.log('router.POST new user:', saveUser, 'req.body:', req.body);
+  // console.log('router.POST new user:', saveUser, 'req.body:', req.body);
   pool.query('INSERT INTO users (username, password, first, last, rank, unit_id) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id',
     [saveUser.username, saveUser.password, saveUser.first, saveUser.last, saveUser.rank, saveUser.unit], (err, result) => {
       if (err) {
-        console.log("Error inserting data: ", err);
+        // console.log("Error inserting data: ", err);
         res.sendStatus(500);
       } else {
         res.sendStatus(201);

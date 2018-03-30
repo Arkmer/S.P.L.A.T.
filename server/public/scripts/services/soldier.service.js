@@ -1,5 +1,5 @@
 myApp.service('SoldierService', ['$http', '$location', function($http, $location){
-    console.log('SoldierService Loaded');
+    // console.log('SoldierService Loaded');
     let self = this;
     self.client = filestack.init('AmHeCOZrDRRabvKB4OtaUz');
     self.newSoldierInfo = {};
@@ -37,6 +37,17 @@ myApp.service('SoldierService', ['$http', '$location', function($http, $location
       }
     }).catch(function (error) {
       console.log('getSoldierRoster', error);
+    })
+  }
+
+  self.soldierDocs = function(temp){
+    return $http({
+      method: 'GET',
+      url: `/soldier/docs/${self.soldierRoster.list[temp].id}`
+    }).then((res)=>{
+      self.soldierRoster.list[temp].docs = res.data;
+    }).catch((err)=>{
+      console.log('soldierDocs', err);
     })
   }
 
@@ -94,21 +105,10 @@ myApp.service('SoldierService', ['$http', '$location', function($http, $location
       url: '/soldier/doc/join',
       data: postObj
     }).then((res)=>{
-      self.getSoldierRoster(soldier.unit_id, soldier);
+      self.getSoldierRoster(soldier.unit_id);
       self.newDocument = {};
     }).catch((error)=>{
       console.log('addSoldierDoc3', error);
-    })
-  }
-
-  self.soldierDocs = function(temp){
-    return $http({
-      method: 'GET',
-      url: `/soldier/docs/${self.soldierRoster.list[temp].id}`
-    }).then((res)=>{
-      self.soldierRoster.list[temp].docs = res.data;
-    }).catch((err)=>{
-      console.log('soldierDocs', err);
     })
   }
 

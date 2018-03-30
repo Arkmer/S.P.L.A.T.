@@ -4,12 +4,21 @@
         <div class="">
             <div class="col-xs-3 col-sm-3 col-md-3 col-ld-3 divHeightControl">Date</div>
             <div class="col-xs-3 col-sm-3 col-md-3 col-ld-3 divHeightControl">Location</div>
-            <div class="col-xs-6 col-sm-6 col-md-6 col-ld-6"><button ng-if="!vm.addInputs" ng-click="vm.dateInputShow()" class="btn-xs btn-success">Add</button></div>
+            <div class="col-xs-6 col-sm-6 col-md-6 col-ld-6">
+                <button ng-if="!vm.addInputs" ng-click="vm.dateInputShow()" class="btn-xs btn-success">Add</button>
+            </div>
         </div>
         <div ng-if="vm.addInputs">
-            <div class="col-xs-3 col-sm-3 col-md-3 col-ld-3 divHeightControl"><input type="date"></div>
-            <div class="col-xs-3 col-sm-3 col-md-3 col-ld-3 divHeightControl"><input type="text"></div>
-            <div class="col-xs-6 col-sm-6 col-md-6 col-ld-6"><button ng-click="vm.dateInputShow()" class="btn-xs btn-success">Finish</button><button ng-click="vm.dateInputShow()" class="btn-xs btn-warning">Cancel</button></div>
+            <div class="col-xs-3 col-sm-3 col-md-3 col-ld-3 divHeightControl">
+                <input ng-model="vm.newDate.date" type="date">
+            </div>
+            <div ng-model="vm.newDate.location" class="col-xs-3 col-sm-3 col-md-3 col-ld-3 divHeightControl">
+                <input ng-model="vm.newDate.location" type="text">
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6 col-ld-6">
+                <button ng-click="vm.dateInputShow(); vm.attachUnitToAddDate()" class="btn-xs btn-success">Finish</button>
+                <button ng-click="vm.dateInputShow()" class="btn-xs btn-warning">Cancel</button>
+            </div>
         </div>
     </div>
     <div class="row">
@@ -17,23 +26,29 @@
             <!-- Dates Repeat in Tier 1 -->
             <div  ng-click="vm.toggleDateSubform(date)" class="hoverDiv divHeightControl textAlign5">
                 <div>
-                    <div class="col-xs-3 col-sm-3 col-md-3 col-ld-3">{{date.date}}</div>
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-ld-3">{{date.date | date: short}}</div>
                     <div class="col-xs-3 col-sm-3 col-md-3 col-ld-3">{{date.location}}</div>
-                    <div class="col-xs-6 col-sm-6 col-md-6 col-ld-6"></div>
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-ld-6">
+                            <button ng-click="vm.toggleDateSubform(date); vm.deleteDate(date)" class="btn-xs btn-danger">Delete</button>
+                    </div>
                 </div>
             </div>
             <!-- Dates Stop in Tier 1 -->
-            <!-- Documents Card Repeat in Tier 2 -->
+            <!-- General Documents Card Repeat in Tier 2 -->
             <div ng-if="date.showSubtable" class="col-xs-3 col-sm-3 col-md-3 col-ld-3">
                 <div class="divHeightControl textAlign4">
                     <div class="col-xs-6 col-sm-6 col-md-6 col-ld-6">General</div>
-                    <div class="col-xs-6 col-sm-6 col-md-6 col-ld-6"><button class="btn-xs btn-success">Add</button></div>
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-ld-6">
+                        <button ng-click="vm.addGenDoc(date)" class="btn-xs btn-success">Add</button>
+                    </div>
                 </div>
                 <div ng-repeat="doc in date.docs" class="hoverDiv divHeightControl textAlign4">
                     <div class="col-xs-6 col-sm-6 col-md-6 col-ld-6">{{doc.name}}</div>
-                    <div class="col-xs-6 col-sm-6 col-md-6 col-ld-6"><button class="btn-xs btn-danger">Delete</button></div>
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-ld-6">
+                        <button ng-click="vm.deleteGenDoc(doc, date)" class="btn-xs btn-danger">Delete</button>
+                    </div>
                 </div>
-            </div> <!-- Documents Card Stop in Tier 2 -->
+            </div> <!-- General Documents Card Stop in Tier 2 -->
             <!-- Tasks Card Repeat in Tier 2 -->
             <div ng-if="date.showSubtable" class="col-xs-9 col-sm-9 col-md-9 col-ld-9">
                 <div class="divHeightControl textAlign4 greySeparator font10">
