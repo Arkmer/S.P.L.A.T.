@@ -122,4 +122,48 @@ router.delete('/date/delete/:id', (req, res)=>{
     }
 })
 
+router.post('/task', (req, res)=>{
+    if (req.isAuthenticated()) {
+        pool.query('INSERT INTO task (name, time, command, location, date_id) VALUES ($1, $2, $3, $4, $5) RETURNING id;',
+        [req.body.name, req.body.time, req.body.command, req.body.location, req.body.date_id]
+        ).then(function(result){
+            res.send(result.rows);
+        }).catch(function(error) {
+            console.log('Err', error);
+            res.sendStatus(201);
+        })
+    }else{
+        res.sendStatus(403);
+    }
+});
+
+router.get('/task/all/:date_id', (req, res)=>{
+    if (req.isAuthenticated()) {
+        let search = req.params.date_id;
+        pool.query(`select * from task where date_id = $1;`,
+        [search]
+        ).then(function(result) {
+            res.send(result.rows);
+        }).catch(function(error) {
+            res.sendStatus(500);
+        })
+    }else{
+        res.sendStatus(403);
+    }
+});
+
+router.delete('/task/delete/:id', (req, res)=>{
+    if (req.isAuthenticated()) {
+        let id = req.params.id;
+        pool.query(`delete from task where id = $1;`, [id])
+        .then(function(result) {
+            res.send(result.rows);
+        }).catch(function(error) {
+            res.sendStatus(500);
+        })
+    }else{
+        res.sendStatus(403);
+    }
+})
+
 module.exports = router;

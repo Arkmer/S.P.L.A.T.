@@ -11,15 +11,26 @@ myApp.controller('ScheduleController', ['ScheduleService', 'UserService', functi
   self.addGenDoc = ScheduleService.addGenDoc;
   self.deleteGenDoc = ScheduleService.deleteGenDoc;
   self.deleteDate = ScheduleService.deleteDate;
+  self.addTask1 = ScheduleService.addTask1;
+  self.newTask = ScheduleService.newTask;
+  self.deleteTask = ScheduleService.deleteTask;
 
   self.getDates(self.userObject.unit_id);
 
   self.toggleDateSubform = function (date) {
     date.showSubtable = !date.showSubtable;
+    if(date.showSubtable === true){
+
+    }
   }
 
   self.toggleTaskSubform = function (task) {
     task.showSubtable = !task.showSubtable;
+  }
+
+  self.toggleTaskInputs = function (date) {
+    date.showTaskInputs = !date.showTaskInputs;
+    console.log('toggleTaskInputs', date.showTaskInputs);
   }
 
   self.dateInputShow = function (){
