@@ -20,9 +20,6 @@ myApp.controller('ScheduleController', ['ScheduleService', 'UserService', functi
 
   self.toggleDateSubform = function (date) {
     date.showSubtable = !date.showSubtable;
-    if(date.showSubtable === true){
-
-    }
   }
 
   self.toggleTaskSubform = function (task) {

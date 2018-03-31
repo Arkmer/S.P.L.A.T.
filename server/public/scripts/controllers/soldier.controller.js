@@ -15,6 +15,10 @@ myApp.controller('SoldierController', ['SoldierService', 'UserService', function
   self.removeDoc = SoldierService.removeDoc;
   self.getSoldierRoster(self.userObject.unit_id);
 
+  self.toggleSoldierDocs = function (soldier) {
+    soldier.showSubtable = !soldier.showSubtable;
+  }
+
   self.submitSoldierController = function(){
     let completeNewSoldier = self.newSoldierInfo;
     completeNewSoldier.unit = self.userObject.unit_id;

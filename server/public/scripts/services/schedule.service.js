@@ -45,7 +45,6 @@ myApp.service('ScheduleService', ['$http', '$location', function($http, $locatio
       url: `/schedule/task/all/${self.datesDisplay.list[date].id}`
     }).then((res)=>{
       self.datesDisplay.list[date].tasks = res.data;
-      console.log('Task Objects:', res.data);
       for(task in self.datesDisplay.list[date].tasks){
         self.getTaskDocs(date, task).then();
       }
@@ -55,7 +54,6 @@ myApp.service('ScheduleService', ['$http', '$location', function($http, $locatio
   }
 
   self.getTaskDocs = function(date, task){
-    console.log('Task:', self.datesDisplay.list[date].tasks[task].id);
     return $http({
       method: 'GET',
       url: `/schedule/taskDoc/all/${self.datesDisplay.list[date].tasks[task].id}`

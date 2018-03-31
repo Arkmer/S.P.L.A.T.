@@ -4,8 +4,8 @@ const pool = require('../modules/pool.js');
 
 router.post('/', (req, res) => {
     if (req.isAuthenticated()) {
-        pool.query('INSERT INTO soldier (first, last, rank, eval, ets, apft, unit_id) VALUES ($1, $2, $3, $4, $5, $6, $7);',
-        [req.body.first, req.body.last, req.body.rank, req.body.eval, req.body.ets, req.body.apft, req.body.unit], (err, result) => {
+        pool.query('INSERT INTO soldier (first, last, rank, eval, ets, position, unit_id) VALUES ($1, $2, $3, $4, $5, $6, $7);',
+        [req.body.first, req.body.last, req.body.rank, req.body.eval, req.body.ets, req.body.position, req.body.unit], (err, result) => {
         if (err) {
             res.sendStatus(500);
         } else {
