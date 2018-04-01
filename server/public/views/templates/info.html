@@ -1,11 +1,35 @@
 <div ng-include="'views/partials/nav.html'"></div>
 <div class="container">
-  <p>
-    In Info
-  </p>
-  <div>
-      <!-- <select ng-model="vm.user.unit">
-          <option ng-repeat="unit as vm.unitObject" value={{unit.id}}>{{unit.unit}}</option>
-      </select> -->
+  <div class="row">
+      <!-- Table Headers Start -->
+      <div ng-if="!vm.inputsShowHide" class="divHeightControl textAlign4">
+          <div class="col-xs-6 col-sm-6 col-md-6 col-ld-6">Leadership</div>
+          <div class="col-xs-6 col-sm-6 col-md-6 col-ld-6"></div>
+      </div>
+      <!-- Table Headers End -->
+      <!-- YOU Start -->
+      <div class="greySeparator hoverDiv divHeightControl textAlign4">
+        <div class="col-xs-6 col-sm-6 col-md-6 col-ld-6 divHeightControl">{{vm.userObject.rank}} {{vm.userObject.last}}, {{vm.userObject.first}}</div>
+        <div  ng-if="!vm.showEdit" class="col-xs-6 col-sm-6 col-md-6 col-ld-6 divHeightControl">
+            <button ng-click="vm.toggleEdit(leader)" class="btn-xs btn-warning">Edit</button>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-6 col-ld-6 divHeightControl" ng-if="vm.showEdit">
+          <select ng-model="vm.unitChange.unit_id">
+              <option ng-repeat="unit in vm.unitObject.list" value={{unit.id}}>{{unit.unit}}</option>
+          </select>
+          <button ng-click="vm.toggleEdit(leader); vm.submitUnitChange()" class="btn-xs btn-success">Finish</button>
+          <button ng-click="vm.toggleEdit(leader);" class="btn-xs btn-warning">Cancel</button>
+        </div>
+      </div>
+      <!-- YOU End -->
+      <!-- Other Leadership Start -->
+        <!-- <div ng-repeat="leader in vm.leaders.list | filter: vm:userObject:id" class="greySeparator">
+            <div class="hoverDiv divHeightControl textAlign5">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-ld-12 divHeightControl">{{leader.rank}} {{leader.last}}, {{leader.first}}</div>
+                </div>
+            </div>
+        </div> -->
+        <!-- Soldier Roster Repeat End -->
+      <!-- Other Leadership End -->
   </div>
 </div>

@@ -124,6 +124,16 @@ body, html {
   border-width: 1px;
 }
 
+.greyVertical {
+  border-right-style: solid;
+  border-color: gainsboro;
+  border-width: 1px;
+}
+
+.soldierNameInputs {
+  width: 33%;
+}
+
 .divHeightControl {
   height: 30px;
 }

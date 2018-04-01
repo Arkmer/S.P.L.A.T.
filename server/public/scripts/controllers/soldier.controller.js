@@ -13,10 +13,17 @@ myApp.controller('SoldierController', ['SoldierService', 'UserService', function
   self.removeSoldier = SoldierService.removeSoldier;
   self.newDocument = SoldierService.newDocument;
   self.removeDoc = SoldierService.removeDoc;
+  self.clearInputs = SoldierService.clearInputs;
+
+
   self.getSoldierRoster(self.userObject.unit_id);
 
   self.toggleSoldierDocs = function (soldier) {
     soldier.showSubtable = !soldier.showSubtable;
+  }
+
+  self.toggleNewSoldier = function(){
+    self.inputsShowHide = !self.inputsShowHide;
   }
 
   self.submitSoldierController = function(){
@@ -33,5 +40,9 @@ myApp.controller('SoldierController', ['SoldierService', 'UserService', function
   self.toggleEdit = function (soldier) {
     soldier.showEdit = !soldier.showEdit;
     // console.log('show/hide', soldier);
+  }
+
+  self.editSoldierInputs = function(soldier){
+    soldier.inputsShowHide = !soldier.inputsShowHide;
   }
 }]);

@@ -7,10 +7,6 @@ myApp.service('SoldierService', ['$http', '$location', function($http, $location
     self.documents = [];
     self.newDocument = {};
     self.soldierRoster = {list: []};
-    self.joinSoldierDoc
-  self.addSoldier = function(newSoldierShowHide){
-    newSoldierShowHide = true;
-  }
 
   self.submitSoldier = function(send){
     $http({
@@ -122,5 +118,18 @@ myApp.service('SoldierService', ['$http', '$location', function($http, $location
     }).catch(function (error) {
       console.log('removeDoc', error);
     })
+  }
+
+  self.clearInputs = function(){
+    self.newSoldierInfo.rank = '';
+    self.newSoldierInfo.last = '';
+    self.newSoldierInfo.first = '';
+    self.newSoldierInfo.eval = '';
+    self.newSoldierInfo.ets = '';
+    self.newSoldierInfo.position = '';
+  }
+
+  self.editSoldier = function(){
+    // Edit fields are not keeping dates as presented in the table; hold off until solution can be found.
   }
 }]);

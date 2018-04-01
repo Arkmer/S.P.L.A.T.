@@ -66,4 +66,25 @@ router.get('/units', (req, res) => {
     })
 });
 
+router.get('/leaders/:unit_id', (req, res) => {
+    let unit_id = req.params.unit_id;
+    pool.query(`select * from users where unit_id = $1;`, [unit_id])
+    .then(function(result) {
+        res.send(result.rows);
+    }).catch(function(error) {
+        res.sendStatus(500);
+    })
+});
+
+router.put('/leader/transfer', (req, res)=>{
+  let unit_id = req.body.unit_id;
+  let id = req.body.id;
+  pool.query('update users set unit_id = $1 where id = $2', [unit_id, id])
+  .then(function(result){
+
+  }).catch(function(){
+    res.sendStatus(500);
+  })
+})
+
 module.exports = router;

@@ -96,8 +96,8 @@ router.get('/genDoc/all/:date_id', (req, res)=>{
 router.delete('/genDoc/delete/:doc_id', (req, res)=>{
     if (req.isAuthenticated()) {
         let id = req.params.doc_id;
-        pool.query(`delete from doc where id = $1;`, [id])
         pool.query(`delete from date_doc where doc_id = $1;`, [id])
+        pool.query(`delete from doc where id = $1;`, [id])
         .then(function(result) {
             res.send(result.rows);
         }).catch(function(error) {

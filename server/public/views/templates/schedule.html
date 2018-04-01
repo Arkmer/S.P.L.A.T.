@@ -1,7 +1,7 @@
 <div ng-include="'views/partials/nav.html'"></div>
 <div class="container">
     <div class="row">
-        <div class="">
+        <div ng-if="!vm.addInputs" class="divHeightControl textAlign4">
             <div class="col-xs-3 col-sm-3 col-md-3 col-ld-3 divHeightControl">Date</div>
             <div class="col-xs-3 col-sm-3 col-md-3 col-ld-3 divHeightControl">Location</div>
             <div class="col-xs-6 col-sm-6 col-md-6 col-ld-6">
@@ -13,7 +13,7 @@
                 <input ng-model="vm.newDate.date" type="date">
             </div>
             <div ng-model="vm.newDate.location" class="col-xs-3 col-sm-3 col-md-3 col-ld-3 divHeightControl">
-                <input ng-model="vm.newDate.location" type="text">
+                <input ng-model="vm.newDate.location" type="text" placeholder="Location">
             </div>
             <div class="col-xs-6 col-sm-6 col-md-6 col-ld-6">
                 <button ng-click="vm.dateInputShow(); vm.attachUnitToAddDate()" class="btn-xs btn-success">Finish</button>

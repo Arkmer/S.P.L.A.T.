@@ -10,6 +10,7 @@ const userRouter = require('./routes/user.router');
 const adminRouter = require('./routes/admin.router');
 const soldierRouter = require('./routes/soldier.router');
 const scheduleRouter = require('./routes/schedule.router');
+const vehicleRouter = require('./routes/vehicle.router');
 
 
 // Body parser middleware
@@ -28,6 +29,7 @@ app.use('/api/user', userRouter);
 app.use('/admin', adminRouter);
 app.use('/soldier', soldierRouter);
 app.use('/schedule', scheduleRouter);
+app.use('/vehicle', vehicleRouter);
 
 // Serve static files
 app.use(express.static('server/public'));
