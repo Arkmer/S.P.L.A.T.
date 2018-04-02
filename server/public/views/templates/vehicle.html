@@ -60,7 +60,7 @@
                     <input ng-model="vehicle.location" type="text" placeholder="Position">
                 </div>
                 <div class="col-xs-2 col-sm-2 col-md-2 col-ld-2">
-                    <button class="btn-xs btn-success" ng-click="vm.editVehicleInputs(vehicle);">Finish</button>
+                    <button class="btn-xs btn-success" ng-click="vm.editVehicleInputs(vehicle); vm.sendEditVehicle(vehicle)">Finish</button>
                     <button class="btn-xs btn-warning" ng-click="vm.editVehicleInputs(vehicle);">Cancel</button>
                 </div>
             </div>

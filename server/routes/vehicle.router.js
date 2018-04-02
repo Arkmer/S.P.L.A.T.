@@ -105,6 +105,16 @@ router.delete('/doc/delete/:doc_id', (req, res)=>{
     }else{
         res.sendStatus(403);
     }
-})
+});
+
+router.put('/edit', (req, res)=>{
+    pool.query('update vehicle set vehicle_model = $1, bumper = $2, status = $3, location = $4 where id = $5',
+    [req.body.vehicle_model, req.body.bumper, req.body.status, req.body.location, req.body.id])
+    .then(function(result){
+  
+    }).catch(function(){
+      res.sendStatus(500);
+    })
+  })
 
 module.exports = router;

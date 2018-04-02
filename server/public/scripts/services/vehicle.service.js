@@ -115,4 +115,17 @@ myApp.service('VehicleService', ['$http', '$location', function($http, $location
       console.log('removeDoc', error);
     })
   }
+
+  self.sendEditVehicle = function(vehicle){
+    console.log('UPDATE', vehicle);
+    $http({
+      method: 'PUT',
+      url: '/vehicle/edit',
+      data: vehicle
+    }).then((result)=>{
+      self.getVehicleRoster(vehicle.unit_id);
+    }).catch((error)=>{
+      console.log('sendEditVehicle', error);
+    })
+  }
 }]);

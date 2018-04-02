@@ -12,6 +12,7 @@ myApp.controller('VehicleController', ['VehicleService', 'UserService', function
   self.addVehicleDoc = VehicleService.addVehicleDoc;
   self.removeVehicle = VehicleService.removeVehicle;
   self.removeDoc = VehicleService.removeDoc;
+  self.sendEditVehicle = VehicleService.sendEditVehicle;
 
   self.getVehicleRoster(self.userObject.unit_id);
 
