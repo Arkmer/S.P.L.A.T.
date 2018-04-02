@@ -20,7 +20,7 @@ router.post('/', (req, res) => {
 router.get('/:unit', (req, res)=>{
     if (req.isAuthenticated()) {
         let search = req.params.unit;
-        pool.query(`select * from vehicle where unit_id = ${search};`)
+        pool.query(`select * from vehicle where unit_id = ${search} order by id;`)
         .then(function(result) {
             res.send(result.rows);
         }).catch(function(error) {
@@ -66,7 +66,7 @@ router.post('/doc/join', (req, res)=>{
 router.get('/docs/:vehicle_id', (req, res)=>{
     if (req.isAuthenticated()) {
         let search = req.params.vehicle_id;
-        pool.query(`select * from vehicle_doc join doc on doc.id = vehicle_doc.doc_id where vehicle_id = $1;`,
+        pool.query(`select * from vehicle_doc join doc on doc.id = vehicle_doc.doc_id where vehicle_id = $1 order by id;`,
         [search]
         ).then(function(result) {
             res.send(result.rows);

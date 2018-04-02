@@ -20,7 +20,7 @@ router.post('/', (req, res) => {
 router.get('/:unit', (req, res)=>{
     if (req.isAuthenticated()) {
         let search = req.params.unit;
-        pool.query(`select * from soldier where unit_id = ${search};`)
+        pool.query(`select * from soldier where unit_id = ${search} order by id;`)
         .then(function(result) {
             res.send(result.rows);
         }).catch(function(error) {
@@ -34,7 +34,7 @@ router.get('/:unit', (req, res)=>{
 router.get('/docs/:soldier_id', (req, res)=>{
     if (req.isAuthenticated()) {
         let search = req.params.soldier_id;
-        pool.query(`select * from soldier_doc join doc on doc.id = soldier_doc.doc_id where soldier_id = $1;`,
+        pool.query(`select * from soldier_doc join doc on doc.id = soldier_doc.doc_id where soldier_id = $1 order by id;`,
         [search]
         ).then(function(result) {
             res.send(result.rows);
@@ -65,7 +65,7 @@ router.post('/doc', (req, res)=>{
 router.get('/doc/id/:doc_id', (req, res)=>{
     if (req.isAuthenticated()) {
         let search = req.params.doc_id;
-        pool.query(`select * from doc where upload_id = $1;`,
+        pool.query(`select * from doc where upload_id = $1  order by id;`,
         [search]
         ).then(function(result) {
             res.send(result);

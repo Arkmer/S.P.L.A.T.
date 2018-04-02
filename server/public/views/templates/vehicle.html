@@ -68,7 +68,7 @@
             <!-- Vehicle Document Repeat Start -->
             <div ng-if="vehicle.showSubtable" class="col-xs-12 col-sm-12 col-md-12 col-ld-12">
                 <div ng-repeat="doc in vehicle.docs" class="col-xs-4 col-sm-4 col-md-4 col-ld-4 hoverDiv divHeightControl textAlign4 greyVertical">
-                    <a href="{{doc.url}}">{{doc.name}}</a>
+                    <a class="doc" href="{{doc.url}}">{{doc.name}}</a>
                     <button ng-click="vm.removeDoc(doc, vehicle)" class="btn-xs btn-danger">Delete</button>
                 </div>
             </div>

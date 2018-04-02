@@ -20,7 +20,7 @@ router.post('/addDate', (req, res)=>{
 router.get('/getDates/:unit', (req, res)=>{
     if (req.isAuthenticated()) {
         let search = req.params.unit;
-        pool.query(`select * from date where unit_id = ${search};`)
+        pool.query(`select * from date where unit_id = ${search} order by date;`)
         .then(function(result) {
             res.send(result.rows);
         }).catch(function(error) {
@@ -50,7 +50,7 @@ router.post('/genDoc', (req, res)=>{
 router.get('/genDoc/id/:doc_id', (req, res)=>{
     if (req.isAuthenticated()) {
         let search = req.params.doc_id;
-        pool.query(`select * from doc where upload_id = $1;`,
+        pool.query(`select * from doc where upload_id = $1 order by id;`,
         [search]
         ).then(function(result) {
             res.send(result);
@@ -81,7 +81,7 @@ router.post('/genDoc/join', (req, res)=>{
 router.get('/genDoc/all/:date_id', (req, res)=>{
     if (req.isAuthenticated()) {
         let search = req.params.date_id;
-        pool.query(`select * from date_doc join doc on doc.id = date_doc.doc_id where date_id = $1;`,
+        pool.query(`select * from date_doc join doc on doc.id = date_doc.doc_id where date_id = $1 order by id;`,
         [search]
         ).then(function(result) {
             res.send(result.rows);
@@ -140,7 +140,7 @@ router.post('/task', (req, res)=>{
 router.get('/task/all/:date_id', (req, res)=>{
     if (req.isAuthenticated()) {
         let search = req.params.date_id;
-        pool.query(`select * from task where date_id = $1;`,
+        pool.query(`select * from task where date_id = $1 order by time;`,
         [search]
         ).then(function(result) {
             res.send(result.rows);
@@ -201,7 +201,7 @@ router.post('/taskDoc/join', (req, res)=>{
 router.get('/taskDoc/all/:date_id', (req, res)=>{
     if (req.isAuthenticated()) {
         let search = req.params.date_id;
-        pool.query(`select * from task_doc join doc on doc.id = task_doc.doc_id where task_id = $1;`,
+        pool.query(`select * from task_doc join doc on doc.id = task_doc.doc_id where task_id = $1 order by id;`,
         [search]
         ).then(function(result) {
             res.send(result.rows);
