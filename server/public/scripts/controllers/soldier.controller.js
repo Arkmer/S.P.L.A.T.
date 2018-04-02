@@ -15,7 +15,6 @@ myApp.controller('SoldierController', ['SoldierService', 'UserService', function
   self.removeDoc = SoldierService.removeDoc;
   self.clearInputs = SoldierService.clearInputs;
 
-
   self.getSoldierRoster(self.userObject.unit_id);
 
   self.toggleSoldierDocs = function (soldier) {

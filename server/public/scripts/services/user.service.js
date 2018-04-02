@@ -10,7 +10,7 @@ myApp.service('UserService', ['$http', '$location', function($http, $location){
 
   self.getuser = function(){
     // console.log('UserService -- getuser');
-    $http.get('/api/user').then(function(response) {
+    return $http.get('/api/user').then(function(response) {
         if(response.data) {
             // user has a curret session on the server
             self.userObject = response.data
@@ -76,7 +76,7 @@ myApp.service('UserService', ['$http', '$location', function($http, $location){
       url: `/api/user/leader/transfer`,
       data: update
     }).then(function(response){
-      self.getuser();
+      self.getuser().then();
     }).catch(function (error) {
       // console.log('SoldierService.getSoldierRoster', error);
     })
