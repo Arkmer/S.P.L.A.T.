@@ -64,7 +64,7 @@ myApp.service('SoldierService', ['$http', '$location', function($http, $location
       accept: '.pdf',
       maxFiles: 1
     }).then(function(result){
-      alert('Successful upload.');
+      swal("Document Uploaded", "", "success");
       self.newDocument = result.filesUploaded[0];
       self.newDocument.soldier_id = soldier.id;
       self.addSoldierDoc1(self.newDocument, soldier);

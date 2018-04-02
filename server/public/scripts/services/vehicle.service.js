@@ -59,7 +59,7 @@ myApp.service('VehicleService', ['$http', '$location', function($http, $location
       accept: '.pdf',
       maxFiles: 1
     }).then(function(result){
-      alert('Successful upload.');
+      swal("Document Uploaded", "", "success");
       self.newDocument = result.filesUploaded[0];
       self.newDocument.vehicle_id = vehicle.id;
       self.addVehicleDoc1(self.newDocument, vehicle);

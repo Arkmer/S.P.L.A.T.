@@ -98,7 +98,7 @@ myApp.service('ScheduleService', ['$http', '$location', function($http, $locatio
       accept: '.pdf',
       maxFiles: 1
     }).then(function(result){
-      alert('Successful upload.');
+      swal("Document Uploaded", "", "success");
       self.newGenDoc = result.filesUploaded[0];
       self.newGenDoc.date_id = date.id;
       self.addGenDoc1(self.newGenDoc, date);
@@ -192,7 +192,7 @@ myApp.service('ScheduleService', ['$http', '$location', function($http, $locatio
       accept: '.pdf',
       maxFiles: 1
     }).then(function(result){
-      alert('Successful upload.');
+      swal("Document Uploaded", "", "success");
       self.newTaskDoc = result.filesUploaded[0];
       self.newTaskDoc.task_id = task.id;
       console.log('addTaskDoc', self.newTaskDoc);
