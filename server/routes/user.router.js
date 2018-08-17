@@ -17,9 +17,6 @@ router.get('/', (req, res) => {
   }
 });
 
-// Handles POST request with new user data
-// The only thing different from this and every other post we've seen
-// is that the password gets encrypted before being inserted
 router.post('/register', (req, res, next) => {
   const username = req.body.username;
   const password = encryptLib.encryptPassword(req.body.password);
@@ -32,11 +29,9 @@ router.post('/register', (req, res, next) => {
     rank: req.body.rank,
     unit: req.body.unit
   };
-  console.log('router.POST new user:', saveUser, 'req.body:', req.body);
   pool.query('INSERT INTO users (username, password, first, last, rank, unit_id) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id',
     [saveUser.username, saveUser.password, saveUser.first, saveUser.last, saveUser.rank, saveUser.unit], (err, result) => {
       if (err) {
-        console.log("Error inserting data: ", err);
         res.sendStatus(500);
       } else {
         res.sendStatus(201);
@@ -44,19 +39,44 @@ router.post('/register', (req, res, next) => {
     });
 });
 
-// Handles login form authenticate/login POST
-// userStrategy.authenticate('local') is middleware that we run on this route
-// this middleware will run our POST if successful
-// this middleware will send a 404 if not successful
 router.post('/login', userStrategy.authenticate('local'), (req, res) => {
   res.sendStatus(200);
 });
 
-// clear all server session information about this user
 router.get('/logout', (req, res) => {
-  // Use passport's built-in method to log out the user
   req.logout();
   res.sendStatus(200);
 });
+
+router.get('/units', (req, res) => {
+  pool.query(`select * from unit;`
+  ).then(function (result) {
+    res.send(result.rows);
+  }).catch(function (error) {
+    res.sendStatus(500);
+  })
+});
+
+router.get('/leaders/:unit_id', (req, res) => {
+  let unit_id = req.params.unit_id;
+  pool.query(`select * from users where unit_id = $1;`,
+    [unit_id]
+  ).then(function (result) {
+    res.send(result.rows);
+  }).catch(function (error) {
+    res.sendStatus(500);
+  })
+});
+
+router.put('/leader/transfer', (req, res) => {
+  let unit_id = req.body.unit_id;
+  let id = req.body.id;
+  pool.query('update users set unit_id = $1 where id = $2',
+    [unit_id, id]
+  ).then(function (result) {
+  }).catch(function () {
+    res.sendStatus(500);
+  })
+})
 
 module.exports = router;

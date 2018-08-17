@@ -1,6 +1,113 @@
 <div ng-include="'views/partials/nav.html'"></div>
 <div class="container">
-
-    <h1 id="welcome" class="lead">Welcome, {{vm.userObject.rank}} {{vm.userObject.last}}!</h1>
-    <p>Schedule</p>
+    <div class="row">
+        <div ng-if="!vm.addInputs" class="divHeightControl textAlign4">
+            <div class="col-xs-3 col-sm-3 col-md-3 col-ld-3 divHeightControl">Date</div>
+            <div class="col-xs-3 col-sm-3 col-md-3 col-ld-3 divHeightControl">Location</div>
+            <div class="col-xs-6 col-sm-6 col-md-6 col-ld-6">
+                <button ng-if="!vm.addInputs" ng-click="vm.dateInputShow()" class="btn-xs btn-success">Add</button>
+            </div>
+        </div>
+        <div ng-if="vm.addInputs">
+            <div class="col-xs-3 col-sm-3 col-md-3 col-ld-3 divHeightControl">
+                <input ng-model="vm.newDate.date" type="date">
+            </div>
+            <div ng-model="vm.newDate.location" class="col-xs-3 col-sm-3 col-md-3 col-ld-3 divHeightControl">
+                <input ng-model="vm.newDate.location" type="text" placeholder="Location">
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6 col-ld-6">
+                <button ng-click="vm.dateInputShow(); vm.attachUnitToAddDate()" class="btn-xs btn-success">Finish</button>
+                <button ng-click="vm.dateInputShow()" class="btn-xs btn-warning">Cancel</button>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div ng-repeat="date in vm.datesDisplay.list" class="greySeparator">
+            <!-- Dates Repeat in Tier 1 -->
+            <div  ng-click="vm.toggleDateSubform(date)" class="hoverDiv divHeightControl textAlign5">
+                <div>
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-ld-3">{{date.date | date: short}}</div>
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-ld-3">{{date.location}}</div>
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-ld-6">
+                        <button class="btn-xs btn-success">Add</button>
+                        <button ng-click="vm.toggleDateSubform(date);" class="btn-xs btn-warning">Edit</button>
+                        <button ng-click="vm.toggleDateSubform(date); vm.deleteDate(date)" class="btn-xs btn-danger">Delete</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Dates Stop in Tier 1 -->
+            <!-- General Documents Card Repeat in Tier 2 -->
+            <div ng-if="date.showSubtable" class="col-xs-3 col-sm-3 col-md-3 col-ld-3">
+                <div class="divHeightControl textAlign4">
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-ld-6">General</div>
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-ld-6">
+                        <button ng-click="vm.addGenDoc(date)" class="btn-xs btn-success">Add</button>
+                    </div>
+                </div>
+                <div ng-repeat="doc in date.docs" class="hoverDiv divHeightControl textAlign4">
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-ld-6"><a class="doc" href={{doc.url}}>{{doc.name}}</a></div>
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-ld-6">
+                        <button ng-click="vm.deleteGenDoc(doc, date)" class="btn-xs btn-danger">Delete</button>
+                    </div>
+                </div>
+            </div> <!-- General Documents Card Stop in Tier 2 -->
+            <!-- Tasks Card Repeat in Tier 2 -->
+            <div ng-if="date.showSubtable" class="col-xs-9 col-sm-9 col-md-9 col-ld-9">
+                <div ng-if="!date.showTaskInputs" class="divHeightControl textAlign4 greySeparator">
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-ld-3">Tasks</div>
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-ld-2">Time</div>
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-ld-3">OIC/NCOIC</div>
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-ld-2">Location</div>
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-ld-2">
+                        <button ng-click="vm.toggleTaskInputs(date)" class="btn-xs btn-success" style="float: right">Add</button>
+                    </div>
+                </div>
+                <div ng-if="date.showTaskInputs" class="divHeightControl textAlign4 greySeparator">
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-ld-3">
+                        <input ng-model="vm.newTask.name" type="text" placeholder="Task">
+                    </div>
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-ld-2">
+                        <input ng-model="vm.newTask.time" type="time" placeholder="Time">
+                    </div>
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-ld-3">
+                        <input ng-model="vm.newTask.command" type="text" placeholder="OIC/NCOIC">
+                    </div>
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-ld-2">
+                        <input ng-model="vm.newTask.location" class="shortWidth" type="text" placeholder="Location">
+                    </div>
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-ld-2">
+                        <button ng-click="vm.toggleTaskInputs(date); vm.addTask1(date)" class="btn-xs btn-success">Finish</button>
+                        <button ng-click="vm.toggleTaskInputs(date)" class="btn-xs btn-warning">Cancel</button>
+                    </div>
+                </div>
+                <div ng-repeat="task in date.tasks" class="greySeparator">
+                    <div ng-click="vm.toggleTaskSubform(task)" class="hoverDiv divHeightControl textAlign4">
+                        <div class="col-xs-3 col-sm-3 col-md-3 col-ld-3">{{task.name}}</div>
+                        <div class="col-xs-2 col-sm-2 col-md-2 col-ld-2">{{task.time | date: 'HH:m'}}</div>
+                        <div class="col-xs-3 col-sm-3 col-md-3 col-ld-3">{{task.command}}</div>
+                        <div class="col-xs-2 col-sm-2 col-md-2 col-ld-2">{{task.location}}</div>
+                        <div class="col-xs-2 col-sm-2 col-md-2 col-ld-2">
+                            <button ng-click="vm.toggleTaskSubform(task); vm.deleteTask(task, date)" class="btn-xs btn-danger">Delete</button>
+                        </div>
+                    </div>
+                    <!-- Task Documents Card Repeat in Tier 3 -->
+                    <div ng-if="task.showSubtable" class="">
+                        <div class="divHeightControl textAlign2 ">
+                            <div class="col-xs-10 col-sm-10 col-md-10 col-ld-10">&nbsp;&nbsp;&nbsp;&nbsp;Task Files</div>
+                            <div class="col-xs-2 col-sm-2 col-md-2 col-ld-2">
+                                <button class="btn-xs btn-success" ng-click="vm.addTaskDoc(task, date)">Add</button>
+                            </div>
+                        </div>
+                        <div ng-repeat="doc in task.docs" class="divHeightControl textAlign2">
+                            <div class="col-xs-10 col-sm-10 col-md-10 col-ld-10">&nbsp;&nbsp;&nbsp;&nbsp;<a class="doc" href={{doc.url}}>{{doc.name}}</a></div>
+                            <div class="col-xs-2 col-sm-2 col-md-2 col-ld-2">
+                                <button class="btn-xs btn-danger">Delete</button>
+                            </div>
+                        </div>
+                    </div> <!-- Task Documents Card End -->
+                </div> <!-- Tasks Repeat End -->
+            </div> <!-- Tasks Card End -->
+            <p ng-if="date.showSubtable" class="devDot">&nbsp;</p>
+        </div>
+    </div>
 </div>

@@ -1,26 +1,97 @@
 <div ng-include="'views/partials/nav.html'"></div>
 <div class="container">
-
-    <h1 id="welcome" class="lead">Welcome, {{vm.userObject.rank}} {{vm.userObject.last}}!</h1>
-    <button ng-click="vm.soldierService.simple()">Add Soldier</button>
-    <table>
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Eval</th>
-                    <th>ETS</th>
-                    <th>APFT</th>
-                    <th>Docs</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="soldier in vm.soldierRoster">
-                    <td>{{soldier.rank}} {{soldier.last}}, {{soldier.first}}</td>
-                    <td>{{soldier.eval}}</td>
-                    <td>{{soldier.ets}}</td>
-                    <td>{{soldier.apft}}</td>
-                    <td ng-repeat="doc in vm.soldierRoster.$index.docs">{{doc}}</td>
-                </tr>
-            </tbody>
-          </table>
+    <div class="row">
+        <!-- Table Headers Start -->
+        <div ng-if="!vm.inputsShowHide" class="divHeightControl textAlign4">
+            <div class="col-xs-3 col-sm-3 col-md-3 col-ld-3">Soldier</div>
+            <div class="col-xs-2 col-sm-2 col-md-2 col-ld-2">Evaluation Due</div>
+            <div class="col-xs-2 col-sm-2 col-md-2 col-ld-2">ETS</div>
+            <div class="col-xs-3 col-sm-3 col-md-3 col-ld-3">Position</div>
+            <div class="col-xs-2 col-sm-2 col-md-2 col-ld-2">
+                <button class="btn-xs btn-success" ng-click="vm.toggleNewSoldier(); vm.clearInputs()">Add</button>
+            </div>
+        </div>
+        <!-- Table Headers End -->
+        <!-- New Soldier Inputs Start -->
+        <div ng-if="vm.inputsShowHide" class="textAlign4">
+            <div class="col-xs-3 col-sm-3 col-md-3 col-ld-3">
+                <select ng-model="vm.newSoldierInfo.rank">
+                    <option>PVT</option><option>PV2</option><option>PFC</option><option>SPC</option>
+                    <option>CPL</option><option>SGT</option><option>SSG</option><option>SFC</option>
+                    <option>1SG</option><option>MSG</option><option>SGM</option><option>CSM</option>
+                    <option>SMA</option><option>WO1</option><option>CW2</option><option>CW3</option>
+                    <option>CW4</option><option>CW5</option><option>2LT</option><option>1LT</option>
+                    <option>CPT</option><option>MAJ</option><option>LTC</option><option>COL</option>
+                    <option>BG</option> <option>MG</option> <option>LTG</option><option>GEN</option>
+                </select>
+                <input ng-model="vm.newSoldierInfo.last" type="text" placeholder="Last" class="soldierNameInputs">
+                <input ng-model="vm.newSoldierInfo.first" type="text" placeholder="First" class="soldierNameInputs">
+            </div>
+            <div class="col-xs-2 col-sm-2 col-md-2 col-ld-2">
+                <input ng-model="vm.newSoldierInfo.eval" type="date">
+            </div>
+            <div class="col-xs-2 col-sm-2 col-md-2 col-ld-2">
+                <input ng-model="vm.newSoldierInfo.ets" type="date">
+            </div>
+            <div class="col-xs-3 col-sm-3 col-md-3 col-ld-3">
+                <input ng-model="vm.newSoldierInfo.position" type="text" placeholder="Position">
+            </div>
+            <div class="col-xs-2 col-sm-2 col-md-2 col-ld-2">
+                <button class="btn-xs btn-success" ng-click="vm.toggleNewSoldier(); vm.submitSoldierController(vm.newSoldierInfo)">Finish</button>
+                <button class="btn-xs btn-warning" ng-click="vm.toggleNewSoldier(); vm.clearInputs()">Cancel</button>
+            </div>
+        </div>
+        <!-- New Soldier Inputs end -->
+        <div ng-repeat="soldier in vm.soldierRoster.list" class="greySeparator">
+            <!-- Soldier Roster Repeat Start -->
+            <div  ng-if="!soldier.inputsShowHide" ng-click="vm.toggleSoldierDocs(soldier)" class="hoverDiv divHeightControl textAlign5">
+                <div class="col-xs-3 col-sm-3 col-md-3 col-ld-3 divHeightControl">{{soldier.rank}} {{soldier.last}}, {{soldier.first}}</div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-ld-2 divHeightControl">{{soldier.eval | date: 'dd MMM yyyy'}}</div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-ld-2 divHeightControl">{{soldier.ets | date: 'dd MMM yyyy'}}</div>
+                <div class="col-xs-3 col-sm-3 col-md-3 col-ld-3 divHeightControl">{{soldier.position}}</div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-ld-2 divHeightControl">
+                    <button ng-click="vm.addSoldierDoc(soldier); vm.toggleSoldierDocs(soldier)" class="btn-xs btn-success">Add</button>
+                    <button ng-click="vm.editSoldierInputs(soldier); vm.toggleSoldierDocs(soldier)" class="btn-xs btn-warning">Edit</button> <!-- ng-click="" -->
+                    <button ng-click="vm.removeSoldier(soldier); vm.toggleSoldierDocs(soldier)" class="btn-xs btn-danger">Delete</button>
+                </div>
+            </div>
+            <div ng-if="soldier.inputsShowHide" class="textAlign4">
+                <div class="col-xs-3 col-sm-3 col-md-3 col-ld-3">
+                    <select ng-model="soldier.rank">
+                        <option>PVT</option><option>PV2</option><option>PFC</option><option>SPC</option>
+                        <option>CPL</option><option>SGT</option><option>SSG</option><option>SFC</option>
+                        <option>1SG</option><option>MSG</option><option>SGM</option><option>CSM</option>
+                        <option>SMA</option><option>WO1</option><option>CW2</option><option>CW3</option>
+                        <option>CW4</option><option>CW5</option><option>2LT</option><option>1LT</option>
+                        <option>CPT</option><option>MAJ</option><option>LTC</option><option>COL</option>
+                        <option>BG</option> <option>MG</option> <option>LTG</option><option>GEN</option>
+                    </select>
+                    <input ng-model="soldier.last" type="text" placeholder="Last" class="soldierNameInputs">
+                    <input ng-model="soldier.first" type="text" placeholder="First" class="soldierNameInputs">
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-ld-2">
+                    <input ng-model="soldier.eval" type="date">
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-ld-2">
+                    <input ng-model="soldier.ets" type="date">
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3 col-ld-3">
+                    <input ng-model="soldier.position" type="text" placeholder="Position">
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-ld-2">
+                    <button class="btn-xs btn-success" ng-click="vm.editSoldierInputs(soldier);">Finish</button>
+                    <button class="btn-xs btn-warning" ng-click="vm.editSoldierInputs(soldier);">Cancel</button>
+                </div>
+            </div>
+            <!-- Soldier Document Repeat Start -->
+            <div ng-if="soldier.showSubtable" class="col-xs-12 col-sm-12 col-md-12 col-ld-12">
+                <div ng-repeat="doc in soldier.docs" class="col-xs-4 col-sm-4 col-md-4 col-ld-4 hoverDiv divHeightControl textAlign4 greyVertical">
+                    <a class="doc" href="{{doc.url}}">{{doc.name}}</a>
+                    <button ng-click="vm.removeDoc(doc, soldier)" class="btn-xs btn-danger">Delete</button>
+                </div>
+            </div>
+            <!-- Soldier Document Repeat End -->
+        </div>
+        <!-- Soldier Roster Repeat End -->
+    </div>
 </div>

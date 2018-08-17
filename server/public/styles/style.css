@@ -54,18 +54,18 @@ body, html {
   border-radius: 0px;
 }
 
-ul {
+.navBar {
   list-style-type: none;
   margin: 0;
   padding: 0;
   overflow: hidden;
 }
 
-li {
+.navButton {
   float: left;
 }
 
-li a {
+.navButton a {
   display: block;
   color: white;
   text-align: center;
@@ -74,7 +74,102 @@ li a {
 }
 
 /* Change the link color to #111 (black) on hover */
-li a:hover {
+.navButton a:hover {
   text-decoration: underline;
   color: #eee;
+}
+
+.redDiv {
+  border-style: solid;
+  border-color: red;
+}
+
+.blueDiv {
+  border-style: solid;
+  border-color: deepskyblue;
+}
+
+.greenDiv {
+  border-style: solid;
+  border-color: green;
+}
+
+.yellowDiv {
+  border-style: solid;
+  border-color: yellow;
+}
+
+.purpleDiv {
+  border-style: solid;
+  border-color: orchid;
+}
+
+.devDot {
+  color: white; /* Make this the sam e as the background. */
+}
+
+.navbar {
+  border-radius: 0px !important;
+}
+
+.hoverDiv:hover {
+  background: #f5f5f5
+}
+
+/* Schedule Styles */
+
+.greySeparator {
+  border-bottom-style: solid;
+  border-color: gainsboro;
+  border-width: 1px;
+}
+
+.greyVertical {
+  border-right-style: solid;
+  border-color: gainsboro;
+  border-width: 1px;
+}
+
+.soldierNameInputs {
+  width: 33%;
+}
+
+.divHeightControl {
+  height: 30px;
+}
+
+.textAlign5 {
+  padding-top: 5px;
+}
+
+.textAlign4 {
+  padding-top: 4px;
+}
+
+.textAlign3 {
+  padding-top: 3px;
+}
+
+.textAlign2 {
+  padding-top: 2px;
+}
+
+.textAlign1 {
+  padding-top: 1px;
+}
+
+.btn-xs {
+  float: right;
+  width: 50px;
+}
+
+div {
+  overflow: hidden;
+}
+
+.shortWidth {
+  width: 75%;
+}
+
+.doc {
 }

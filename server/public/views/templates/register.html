@@ -20,15 +20,36 @@
     </div>
     <div>
         <label for="password">Rank:</label>
-        <input type="text" ng-model="vm.user.rank" placeholder="ex: MAJ" />
+        <!-- <input type="text" ng-model="vm.user.rank" placeholder="ex: MAJ" /> -->
+        <select ng-model="vm.user.rank">
+            <option>SFC</option>
+            <option>1SG</option>
+            <option>MSG</option>
+            <option>SGM</option>
+            <option>CSM</option>
+            <option>SMA</option>
+            <option>WO1</option>
+            <option>CW2</option>
+            <option>CW3</option>
+            <option>CW4</option>
+            <option>CW5</option>
+            <option>2LT</option>
+            <option>1LT</option>
+            <option>CPT</option>
+            <option>MAJ</option>
+            <option>LTC</option>
+            <option>COL</option>
+            <option>BG</option>
+            <option>MG</option>
+            <option>LTG</option>
+            <option>GEN</option>
+        </select>
     </div>
-    <!-- <div>
-        <label for="password">Unit:</label>
-        <input type="text" ng-model="vm.user.unit" placeholder="ex: 334th BEB Aco A&O" />
-    </div> -->
     <div>
+
+        <label for="password">Unit:</label>
         <select ng-model="vm.user.unit">
-            <option ng-repeat="unit as vm.unitObject" value={{unit.id}}>{{unit.unit}}</option>
+            <option ng-repeat="unit in vm.unitObject.list" value={{unit.id}}>{{unit.unit}}</option>
         </select>
     </div>
     <input class="btn btn-default" type="submit" name="submit" value="Register" />

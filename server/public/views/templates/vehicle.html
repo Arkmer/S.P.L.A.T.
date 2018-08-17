@@ -1,6 +1,79 @@
 <div ng-include="'views/partials/nav.html'"></div>
 <div class="container">
-
-    <h1 id="welcome" class="lead">Welcome, {{vm.userObject.rank}} {{vm.userObject.last}}!</h1>
-    <p>Vehicle</p>
+    <div class="row">
+        <!-- Table Headers Start -->
+        <div ng-if="!vm.inputsShowHide" class="divHeightControl textAlign4">
+            <div class="col-xs-3 col-sm-3 col-md-3 col-ld-3">Vehicle Model</div>
+            <div class="col-xs-2 col-sm-2 col-md-2 col-ld-2">Bumper Number</div>
+            <div class="col-xs-2 col-sm-2 col-md-2 col-ld-2">Status</div>
+            <div class="col-xs-3 col-sm-3 col-md-3 col-ld-3">Location</div>
+            <div class="col-xs-2 col-sm-2 col-md-2 col-ld-2">
+                <button class="btn-xs btn-success" ng-click="vm.toggleNewVehicle(); vm.clearInputs()">Add</button>
+            </div>
+        </div>
+        <!-- Table Headers End -->
+        <!-- New Vehicle Inputs Start -->
+        <div ng-if="vm.inputsShowHide" class="textAlign4">
+            <div class="col-xs-3 col-sm-3 col-md-3 col-ld-3">
+                <input ng-model="vm.newVehicleInfo.vehicle_model" type="text" placeholder="Vehicle Model">
+            </div>
+            <div class="col-xs-2 col-sm-2 col-md-2 col-ld-2">
+                <input ng-model="vm.newVehicleInfo.bumper" type="text" placeholder="Bumper Number">
+            </div>
+            <div class="col-xs-2 col-sm-2 col-md-2 col-ld-2">
+                <input ng-model="vm.newVehicleInfo.status" type="text" placeholder="Status">
+            </div>
+            <div class="col-xs-3 col-sm-3 col-md-3 col-ld-3">
+                <input ng-model="vm.newVehicleInfo.location" type="text" placeholder="Location">
+            </div>
+            <div class="col-xs-2 col-sm-2 col-md-2 col-ld-2">
+                <button class="btn-xs btn-success" ng-click="vm.toggleNewVehicle(); vm.submitVehicleController(vm.newVehicleInfo)">Finish</button>
+                <button class="btn-xs btn-warning" ng-click="vm.toggleNewVehicle(); vm.clearInputs()">Cancel</button>
+            </div>
+        </div>
+        <!-- New Vehicle Inputs end -->
+        <!-- Vehicle Roster Repeat Start -->
+        <div ng-repeat="vehicle in vm.vehicleRoster.list" class="greySeparator">
+            <div  ng-if="!vehicle.inputsShowHide" ng-click="vm.toggleVehicleDocs(vehicle)" class="hoverDiv divHeightControl textAlign5">
+                <div class="col-xs-3 col-sm-3 col-md-3 col-ld-3 divHeightControl">{{vehicle.vehicle_model}}</div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-ld-2 divHeightControl">{{vehicle.bumper}}</div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-ld-2 divHeightControl">{{vehicle.status}}</div>
+                <div class="col-xs-3 col-sm-3 col-md-3 col-ld-3 divHeightControl">{{vehicle.location}}</div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-ld-2 divHeightControl">
+                    <button ng-click="vm.addVehicleDoc(vehicle); vm.toggleVehicleDocs(vehicle)" class="btn-xs btn-success">Add</button>
+                    <button ng-click="vm.editVehicleInputs(vehicle);" class="btn-xs btn-warning">Edit</button> <!-- ng-if func for subtable? Works different here -->
+                    <button ng-click="vm.removeVehicle(vehicle); vm.toggleVehicleDocs(vehicle)" class="btn-xs btn-danger">Delete</button>
+                </div>
+            </div>
+            <!-- Vehicle Edit Inputs Start -->
+            <div ng-if="vehicle.inputsShowHide" class="textAlign4">
+                <div class="col-xs-3 col-sm-3 col-md-3 col-ld-3">
+                    <input ng-model="vehicle.vehicle_model" type="text" placeholder="First" class="vehicleNameInputs">
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-ld-2">
+                    <input ng-model="vehicle.bumper" type="text" placeholder={{vehicle.eval}}>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-ld-2">
+                    <input ng-model="vehicle.status" type="text">
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3 col-ld-3">
+                    <input ng-model="vehicle.location" type="text" placeholder="Position">
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-ld-2">
+                    <button class="btn-xs btn-success" ng-click="vm.editVehicleInputs(vehicle); vm.sendEditVehicle(vehicle)">Finish</button>
+                    <button class="btn-xs btn-warning" ng-click="vm.editVehicleInputs(vehicle);">Cancel</button>
+                </div>
+            </div>
+            <!-- Vehicle Edit Inputs End -->
+            <!-- Vehicle Document Repeat Start -->
+            <div ng-if="vehicle.showSubtable" class="col-xs-12 col-sm-12 col-md-12 col-ld-12">
+                <div ng-repeat="doc in vehicle.docs" class="col-xs-4 col-sm-4 col-md-4 col-ld-4 hoverDiv divHeightControl textAlign4 greyVertical">
+                    <a class="doc" href="{{doc.url}}">{{doc.name}}</a>
+                    <button ng-click="vm.removeDoc(doc, vehicle)" class="btn-xs btn-danger">Delete</button>
+                </div>
+            </div>
+            <!-- Vehicle Document Repeat End -->
+        </div>
+        <!-- Vehicle Roster Repeat End -->
+    </div>
 </div>
